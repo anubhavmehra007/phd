@@ -1,2 +1,2 @@
 # phd
-PHD Portal for university.
+PHD Scholars Portal for Kumaun university. 
