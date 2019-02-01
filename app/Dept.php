@@ -11,4 +11,5 @@ class Dept extends Model
     public function guides(){
         return $this->hasMany('App\Guide');
     }
+
 }
