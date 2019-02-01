@@ -14,6 +14,7 @@ class DeptsController extends Controller
     public function index()
     {
         //
+        return "Department";
     }
 
     /**
@@ -23,7 +24,7 @@ class DeptsController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

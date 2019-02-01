@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::resource('/guides', 'GuidesController');
+
+Route::resource('/scholars', 'ScholarsController');
+
+Route::resource('/depts', 'DeptsController');
+
+Route::resource('/colleges', 'CollegesController');
+
