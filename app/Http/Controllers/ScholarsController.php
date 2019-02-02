@@ -17,9 +17,10 @@ class ScholarsController extends Controller
      */
     public function index()
     {
-        //
-        return "Scholars";
+        
+        return view('scholars.index');
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +30,7 @@ class ScholarsController extends Controller
     public function create()
     {
         //
-        return view('pages.createscholars');
+        return view('scholars.createscholars');
     }
 
     /**

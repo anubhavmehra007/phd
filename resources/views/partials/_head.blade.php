@@ -7,10 +7,7 @@
         <meta name="author" content="">
     
         <title>PHD Portal @yield('titlle')</title> <!--change title for each page-->
-    
-        @yield('stylesheets')
-    
-        
+               
         <!-- Bootstrap core CSS-->
         {!! Html::style('css/bootstrap.min.css') !!} 
         
@@ -22,6 +19,7 @@
         <!-- Custom styles for this template-->
         {!! Html::style('css/sb-admin.css') !!}
         
+        @yield('stylesheets')
     
       </head>
     
