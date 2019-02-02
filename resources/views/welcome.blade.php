@@ -78,7 +78,7 @@
                     @endauth
                 </div>
             @endif
-
+@include('inc.msg')
             <div class="content">
                 <div class="title m-b-md">
                     PHD Portal
