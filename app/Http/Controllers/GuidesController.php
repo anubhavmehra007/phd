@@ -14,6 +14,7 @@ class GuidesController extends Controller
     public function index()
     {
         //
+        return "Guide";
     }
 
     /**

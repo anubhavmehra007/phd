@@ -12,4 +12,7 @@ class Guide extends Model
     public function dept(){
         return $this->belongsTo("App\Dept");
     }
+    public function college(){
+        return $this->belongsTo("App\College");
+    }
 }
