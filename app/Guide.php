@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Guide extends Model
 {
+    public $timestamps = false;
     public function scholars(){
         return $this->hasMany("App\Scholar");
     }
