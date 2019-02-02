@@ -17,8 +17,23 @@ class ScholarsController extends Controller
      */
     public function index()
     {
-        
-        return view('scholars.index');
+        $scholars = Scholar::all();
+        $data = array();
+        foreach($scholars as $scholar) {
+            $guide_id = $scholar->guide_id;
+            $guide = Guide::where('id', $guide_id)->first();
+            $dept_id = $guide->dept_id;
+            $college_id = $guide->college_id;
+            $college = College::where('id', $college_id)->first();
+            $dept = Dept::where('id', $dept_id)->first();
+            $scholar_data = array(['name' => $scholar->name, 'guide' => $guide->name, 'dept' =>
+            $dept->name, 'college' => $college->name, 'yoj' => $scholar->y_o_j, 'yoc' => $scholar->y_o_c, 'eta' => $scholar->eta, 'course' => $scholar->course_work]);
+            array_push($data, $scholar_data);
+
+
+        }
+ //return $data;
+       return view('scholars.index')->with('data', $data);
     }
     
 
@@ -29,8 +44,10 @@ class ScholarsController extends Controller
      */
     public function create()
     {
-        //
+       
+
         return view('scholars.createscholars');
+        
     }
 
     /**
@@ -114,7 +131,7 @@ class ScholarsController extends Controller
             $scholar->course_work = 1;
         }
         $scholar->save();
-        return redirect('/')->with('success','Entry Done');
+        return redirect('/scholars')->with('success','Entry Done');
         
 
 
