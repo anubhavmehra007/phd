@@ -26,8 +26,9 @@ class ScholarsController extends Controller
             $college_id = $guide->college_id;
             $college = College::where('id', $college_id)->first();
             $dept = Dept::where('id', $dept_id)->first();
-            $scholar_data = array(['name' => $scholar->name, 'guide' => $guide->name, 'dept' =>
-            $dept->name, 'college' => $college->name, 'yoj' => $scholar->y_o_j, 'yoc' => $scholar->y_o_c, 'eta' => $scholar->eta, 'course' => $scholar->course_work]);
+            $scholar_data = array('name' => $scholar->name, 'guide' => $guide->name, 'dept' =>
+            $dept->name, 'college' => $college->name, 'yoj' => $scholar->y_o_j, 'yoc' => $scholar->y_o_c, 
+            'eta' => $scholar->eta, 'course' => $scholar->course_work);
             array_push($data, $scholar_data);
 
 

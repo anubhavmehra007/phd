@@ -66,30 +66,30 @@
 
                       @foreach($data as $datum)
                         <tr>
-                          {{$i = 0}}
-                          <td>{{$datum[$i]['name']}}</td>
-                          <td>{{$datum[$i]['yoj']}}</td>
+                          
+                          <td>{{$datum['name']}}</td>
+                          <td>{{$datum['yoj']}}</td>
                           <td>
-                           @if($datum[$i]['yoc'] == 0) 
+                           @if($datum['yoc'] == 0) 
                            Not Complete
                            @else
-                           {{$datum[$i]['yoc']}}
+                           {{$datum['yoc']}}
                            @endif
                           
                           </td>
-                          <td>{{$datum[$i]['eta']}}</td>
+                          <td>{{$datum['eta']}}</td>
                           <td>
-                              @if($datum[$i]['course'] == 0) 
+                              @if($datum['course'] == 0) 
                               Not Complete
                               @else
                               Completed
                               @endif
                              
                              </td>
-                          <td>{{$datum[$i]['guide']}}</td>
-                          <td>{{$datum[$i]['dept']}}</td>
-                          <td>{{$datum[$i]['college']}}</td>
-                          {{$i++}}
+                          <td>{{$datum['guide']}}</td>
+                          <td>{{$datum['dept']}}</td>
+                          <td>{{$datum['college']}}</td>
+                          
                         </tr>
 
                     @endforeach
