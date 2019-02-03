@@ -22,7 +22,7 @@
     <!-- Icon Cards-->
     <div class="row ">
             <div class="col-md-2">
-                    <a href="{{ route('scholars.create') }}" class="btn btn-primary btn-lg ">New Scholars Entry</a>
+                    <a href="{{ route('scholars.create') }}" class="btn btn-primary btn-lg ">New Scholar&rsquo;s Entry</a>
             </div>    
             <div class="col-md-12">
                     <hr>
