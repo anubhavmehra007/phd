@@ -1,15 +1,16 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top justify-content-between">
+<div>
         <a class="navbar-brand mr-1" href="index.html">PHD Portal</a>
   
         <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
           <i class="fas fa-bars"></i>
         </button>
   
-        
+      </div>
+      <div>
   
         <!-- Navbar -->
-        <ul class="navbar-nav ml-auto ml-md-0 float-right">
+        <ul class="navbar-nav ml-auto ml-md-0 ">
           
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -23,5 +24,5 @@
             </div>
           </li>
         </ul>
-  
+      </div>
       </nav>
