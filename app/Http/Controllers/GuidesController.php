@@ -59,7 +59,7 @@ class GuidesController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
