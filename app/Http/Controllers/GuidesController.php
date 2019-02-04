@@ -26,7 +26,7 @@ class GuidesController extends Controller
             array_push($data, ['guide_name' => $guide->name, 'college_name' => $college->name, 'dept_name' => $dept->name, 'scholars' => "$no_of_scholars"]);
             
         }
-        return $data;
+        return view('guides.index')->with('data', $data);
         
     }
 
