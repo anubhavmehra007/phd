@@ -22,9 +22,9 @@
             <div class="card-body-icon">
             <i class="fas fa-fw fa-building"></i>
             </div>
-            <div class="mr-5">26 Collegs</div>
+            <div class="mr-5">{{$data['cc']}} Collegs</div>
         </div>
-        <a class="card-footer text-white clearfix small z-1" href="#">
+        <a class="card-footer text-white clearfix small z-1" href="{{url('/colleges')}}">
             <span class="float-left">View Details</span>
             <span class="float-right">
             <i class="fas fa-angle-right"></i>
@@ -38,9 +38,9 @@
             <div class="card-body-icon">
             <i class="fas fa-fw fa-store"></i>
             </div>
-            <div class="mr-5">11 Departmens</div>
+            <div class="mr-5">{{$data['dc']}} Departmens</div>
         </div>
-        <a class="card-footer text-white clearfix small z-1" href="#">
+        <a class="card-footer text-white clearfix small z-1" href="{{url('/depts')}}">
             <span class="float-left">View Details</span>
             <span class="float-right">
             <i class="fas fa-angle-right"></i>
@@ -54,9 +54,9 @@
             <div class="card-body-icon">
             <i class="fas fa-fw fa-user-tie"></i>
             </div>
-            <div class="mr-5">123 Guides</div>
+            <div class="mr-5">{{$data['gc']}} Guides</div>
         </div>
-        <a class="card-footer text-white clearfix small z-1" href="#">
+        <a class="card-footer text-white clearfix small z-1" href="{{url('/guides')}}">
             <span class="float-left">View Details</span>
             <span class="float-right">
             <i class="fas fa-angle-right"></i>
@@ -70,9 +70,9 @@
             <div class="card-body-icon">
             <i class="fas fa-fw fa-user-graduate"></i>
             </div>
-            <div class="mr-5">13 Scholars</div>
+            <div class="mr-5">{{$data['sc']}} Scholars</div>
         </div>
-        <a class="card-footer text-white clearfix small z-1" href="#">
+        <a class="card-footer text-white clearfix small z-1" href="{{url('/scholars')}}">
             <span class="float-left">View Details</span>
             <span class="float-right">
             <i class="fas fa-angle-right"></i>

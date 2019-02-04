@@ -21,11 +21,11 @@ class ScholarsController extends Controller
         $data = array();
         foreach($scholars as $scholar) {
             $guide_id = $scholar->guide_id;
-            $guide = Guide::where('id', $guide_id)->first();
+            $guide = Guide::find( $guide_id);
             $dept_id = $guide->dept_id;
             $college_id = $guide->college_id;
-            $college = College::where('id', $college_id)->first();
-            $dept = Dept::where('id', $dept_id)->first();
+            $college = College::find( $college_id);
+            $dept = Dept::find( $dept_id);
             $scholar_data = array('name' => $scholar->name, 'guide' => $guide->name, 'dept' =>
             $dept->name, 'college' => $college->name, 'yoj' => $scholar->y_o_j, 'yoc' => $scholar->y_o_c, 
             'eta' => $scholar->eta, 'course' => $scholar->course_work);

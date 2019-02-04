@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Scholar;
+use App\Guide;
+use App\Dept;
+use App\College;
 
 class GuidesController extends Controller
 {
@@ -13,8 +17,17 @@ class GuidesController extends Controller
      */
     public function index()
     {
-        //
-        return "Guide";
+        $guides = Guide::all();
+        $data = array();
+        foreach($guides as $guide) {
+            $college = College::find($guide->college_id);
+            $dept = Dept::find($guide->dept_id);
+            $no_of_scholars = Scholar::where('guide_id',$guide->id)->count();
+            array_push($data, ['guide_name' => $guide->name, 'college_name' => $college->name, 'dept_name' => $dept->name, 'scholars' => "$no_of_scholars"]);
+            
+        }
+        return $data;
+        
     }
 
     /**
