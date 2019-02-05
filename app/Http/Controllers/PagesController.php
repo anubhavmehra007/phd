@@ -18,8 +18,8 @@ class PagesController extends Controller
         $colleges_count = College::all()->count();
         $depts_count = Dept::all()->count();
         $guides_count = Guide::all()->count();
-        $return_data = array('sc' => "$scholars_count", 'cc' =>"$colleges_count", 'dc' => "$depts_count", 'gc' => "$guides_count");
-        return view('pages.welcome')->with('data',$return_data);
+        $data = array('sc' => "$scholars_count", 'cc' =>"$colleges_count", 'dc' => "$depts_count", 'gc' => "$guides_count");
+        return view('pages.welcome')->with('data',$data);
 
 
     }
