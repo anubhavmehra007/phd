@@ -68,7 +68,8 @@ class ScholarsController extends Controller
             'course_work' => 'required',
             'guide' => 'required',
             'dept' => 'required',
-            'college' => 'required'
+            'college' => 'required',
+            'email' => 'required|email|unique:scholars,email'
         ]);
         //Changing all text values to uppercase letters.
         $request->college = strtoupper($request->college);
@@ -78,48 +79,22 @@ class ScholarsController extends Controller
 
        //Model Object Creation 
         $scholar = new Scholar();
-        $dept = new Dept();
-        $college = new College();
-        $guide = new Guide();
+        
 
-        //Trying to create new College Entry
-        try{
-        $college->name = $request->college;
-        $college->save();
-        }
-        catch(\Exception $e) {
-           //Means the College already exist
-        }
-
-        $college = College::where('name', $request->college)->first();
-        $college_id = $college->id; 
-        //Trying to create new Department entry
-        try {
-        $dept->name = $request->dept;
-        $dept->save();
-        }
-        catch(\Exception $e) {
-            //Means the Department already exist
-        }
+        
+        
 
         $dept = Dept::where('name', $request->dept)->first();
         $dept_id = $dept->id;
         
-        //Trying to perform new Guide Entry
-        try{
-        $guide->name = $request->guide;
-        $guide->dept_id = $dept_id;
-        $guide->college_id = $college_id;
-        $guide->save();
-        }
-        catch(\Exception $e) {
-            //Means this guide already exist
-        }
+       
+       
         $guide = Guide::where('name', $request->guide)->first();
         $guide_id = $guide->id;
 
 
         $scholar->name = $request->name;
+        $scholar->name = $reuqest->email;
         $scholar->y_o_j = $request->y_o_j;
         $scholar->y_o_c = $request->y_o_c;
         $scholar->eta = $request->eta;

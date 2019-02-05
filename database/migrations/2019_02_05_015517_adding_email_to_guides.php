@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDeptidToGuides extends Migration
+class AddingEmailToGuides extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class AddDeptidToGuides extends Migration
     {
         Schema::table('guides', function (Blueprint $table) {
             //
-            $table->integer('dept_id');
+            $table->string('email')->unique();
         });
     }
 
@@ -28,10 +28,9 @@ class AddDeptidToGuides extends Migration
     {
         Schema::table('guides', function (Blueprint $table) {
             //
-            $table->dropColumn('dept_id');
+            
+            $table->dropColumn('email');
+            
         });
-        
-       
-        
     }
 }
