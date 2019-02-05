@@ -95,25 +95,32 @@ class ScholarsController extends Controller
        //Model Object Creation 
         $scholar = new Scholar();
         
+        if(isset($request->internal)) {
+            $internal = $request->internal;
+        
+        }
+        else {
+            $internal = 0;
+        }
+        if(isset($request->external)) {
+            $external = $request->external;
+        
+        }
+        else {
+            $external = 0;
+        }
+        
 
         
-        
-
-        $dept = Dept::where('name', $request->dept)->first();
-        $dept_id = $dept->id;
-        
-       
-       
-        $guide = Guide::where('name', $request->guide)->first();
-        $guide_id = $guide->id;
-
 
         $scholar->name = $request->name;
-        $scholar->name = $reuqest->email;
+        $scholar->email = $request->email;
         $scholar->y_o_j = $request->y_o_j;
         $scholar->y_o_c = $request->y_o_c;
         $scholar->eta = $request->eta;
-        $scholar->guide_id = $guide_id;
+        $scholar->guide_id = $request->guide;
+        $scholar->external = $external;
+        $scholar->internal = $internal;
         if ($request->course_work == '0') {
             $scholar->course_work = 0;
 
