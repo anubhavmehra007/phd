@@ -37,7 +37,23 @@ class GuidesController extends Controller
      */
     public function create()
     {
-        //
+        $colleges_db = College::all();
+        $depts_db = Dept::all();
+        $colleges = array();
+        $depts = array();
+        foreach($colleges_db as $college) {
+            
+            
+            $colleges["$college->id"] = "$college->name";
+        }
+        
+        foreach($depts_db as $dept) {
+           
+            $depts["$dept->id"] = "$dept->name";
+        }
+        $data = array('cd' => $colleges, 'dd' => $depts);
+        
+        return view('guides.createguides')->with('data', $data);
     }
 
     /**
@@ -49,6 +65,22 @@ class GuidesController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:guides,email',
+            'college' => 'required',
+            'dept' => 'required'
+        ]);
+        $request->name = strtoupper($request->name);
+        $guide = new Guide();
+        $guide->name = $request->name;
+        $guide->email = $request->email;
+        $guide->dept_id = $request->dept;
+        $guide->college_id = $request->college;
+        $guide->save();
+        return "Done";
+        
+
     }
 
     /**

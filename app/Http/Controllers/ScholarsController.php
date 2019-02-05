@@ -45,9 +45,25 @@ class ScholarsController extends Controller
      */
     public function create()
     {
-       
+       $colleges = College::all();
+       $depts = Dept::all();
+       $guides = Guide::all();
+       $college_data = array();
+       $dept_data = array();
+       $guide_data = array();
+       foreach($colleges as $college) {
+           $college_data["$college->id"] = "$college->name";
+       }
+       foreach($depts as $dept) {
+        $dept_data["$dept->id"] = "$dept->name";
+    }
+    foreach($guides as $guide) {
+        $guide_data["$guide->id"] = "$guide->name";
+    }
 
-        return view('scholars.createscholars');
+       $data = array('cd' => $college_data, 'dd' => $dept_data, 'gd'=>$guide_data);
+
+        return view('scholars.createscholars')->with('data', $data);
         
     }
 
@@ -72,10 +88,9 @@ class ScholarsController extends Controller
             'email' => 'required|email|unique:scholars,email'
         ]);
         //Changing all text values to uppercase letters.
-        $request->college = strtoupper($request->college);
-        $request->guide = strtoupper($request->guide);
-        $request->dept = strtoupper($request->dept);
+        
         $request->name = strtoupper($request->name);
+        
 
        //Model Object Creation 
         $scholar = new Scholar();

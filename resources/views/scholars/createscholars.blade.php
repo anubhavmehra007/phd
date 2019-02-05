@@ -95,7 +95,7 @@
                     <div class="col-md-6">
                       <div class="form-group">                                              
                         {{Form::label('college', 'College')}}
-                        {{Form::text('college', null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter College Name') )}}                    
+                        {{Form::select('college',$data['cd'], null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Select College') )}}                    
                       </div>
                     </div>
                   </div>
@@ -108,13 +108,13 @@
                       <div class="col-md-6">
                         <div class="form-group">                          
                           {{Form::label('dept', 'Department')}}                     
-                          {{Form::text('dept', null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>' Enter Department Name' ) )}} 
+                          {{Form::select('dept',$data['dd'], null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Select Department' ) )}} 
                          </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">                                                   
                           {{Form::label('guide', 'Guide')}}
-                          {{Form::text('guide', null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Guide Name') )}}                    
+                          {{Form::select('guide',$data['gd'], null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Select Guide') )}}                    
                         </div>
                       </div>
                     </div>
