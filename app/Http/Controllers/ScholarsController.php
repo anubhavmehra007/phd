@@ -126,10 +126,8 @@ class ScholarsController extends Controller
         $scholar->email = $request->email;
         $scholar->y_o_j = $request->y_o_j;
         $scholar->y_o_c = $request->y_o_c;
-        $scholar->eta = $request->eta;
-        $guide = Guide::where('name', $request->guide)->where('dept_id', $request->dept)->where('college_id', $request->college)->first();
-        
-        $scholar->guide_id = $guide->id;
+        $scholar->eta = $request->eta;       
+        $scholar->guide_id = $request->guide;
         $scholar->external = $external;
         $scholar->internal = $internal;
         if ($request->course_work == '0') {
