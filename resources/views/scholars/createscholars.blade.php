@@ -32,6 +32,28 @@
       marks.innerHTML = null;
     }
   }
+  function fillGuides() {
+
+    var college = document.getElementById('college').value;
+    var dept = document.getElementById('dept').value;
+    var guide = document.getElementById('guides');
+    var data = {!! json_encode($data['gd'])!!}
+    var data = data[college][dept];
+
+    if (data != undefined){
+      var pre = "<label for='guide'>Guide</label><select class = 'form-control' name='guide'>";
+      var mid = "";
+      var post = "</select>";
+        for(var key in data) {
+        mid += `<option value = ${data[key]['id']}>${data[key]['name']}</option>`;
+      }
+      
+      guide.innerHTML = pre + mid + post;
+    }
+    
+    
+  }
+  
 </script>
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
@@ -95,7 +117,7 @@
                     <div class="col-md-6">
                       <div class="form-group">                                              
                         {{Form::label('college', 'College')}}
-                        {{Form::select('college',$data['cd'], null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Select College') )}}                    
+                        {{Form::select('college',$data['cd'], null, array('class' => 'form-control', 'id' => 'college', 'required' => 'required', 'placeholder'=>'Select College', 'onchange' => 'fillGuides()') )}}                    
                       </div>
                     </div>
                   </div>
@@ -108,19 +130,17 @@
                       <div class="col-md-6">
                         <div class="form-group">                          
                           {{Form::label('dept', 'Department')}}                     
-                          {{Form::select('dept',$data['dd'], null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Select Department' ) )}} 
+                          {{Form::select('dept',$data['dd'], null, array('class' => 'form-control','id' =>'dept', 'required' => 'required', 'placeholder'=>'Select Department','onchange' => 'fillGuides()' ) )}} 
                          </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="form-group">                                                   
-                          {{Form::label('guide', 'Guide')}}
-                          {{Form::select('guide',$data['gd'], null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Select Guide') )}}                    
+                        <div class="form-group" id = "guides" >                                                   
                         </div>
                       </div>
                     </div>
                   </div>
             {{Form::submit('Create',  ['class' => 'btn btn-primary btn-block'])}}
-   
+                  
             
           </form>
          

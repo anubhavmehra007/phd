@@ -78,7 +78,7 @@ class GuidesController extends Controller
         $guide->dept_id = $request->dept;
         $guide->college_id = $request->college;
         $guide->save();
-        return "Done";
+        return view('guides.index');
         
 
     }

@@ -33,7 +33,7 @@ class ScholarsController extends Controller
 
 
         }
- //return $data;
+
        return view('scholars.index')->with('data', $data);
     }
     
@@ -47,23 +47,32 @@ class ScholarsController extends Controller
     {
        $colleges = College::all();
        $depts = Dept::all();
-       $guides = Guide::all();
+       $guides_c = Guide::all();
+       $guides =  $guides_c->groupBy([
+        'college_id',
+        function ($item) {
+            return $item['dept_id'];
+        },
+    ], $preserveKeys = false);
        $college_data = array();
        $dept_data = array();
        $guide_data = array();
+       $deptwise = array();
+       $collegewise = array();
+       $dept_flag = 0;
+       $college_flag = 0;
        foreach($colleges as $college) {
            $college_data["$college->id"] = "$college->name";
        }
        foreach($depts as $dept) {
         $dept_data["$dept->id"] = "$dept->name";
-    }
-    foreach($guides as $guide) {
-        $guide_data["$guide->id"] = "$guide->name";
+        
+
     }
 
-       $data = array('cd' => $college_data, 'dd' => $dept_data, 'gd'=>$guide_data);
 
-        return view('scholars.createscholars')->with('data', $data);
+       $data = array('cd' => $college_data, 'dd' => $dept_data, 'gd'=>$guides);
+       return view('scholars.createscholars')->with('data', $data);
         
     }
 
@@ -118,7 +127,9 @@ class ScholarsController extends Controller
         $scholar->y_o_j = $request->y_o_j;
         $scholar->y_o_c = $request->y_o_c;
         $scholar->eta = $request->eta;
-        $scholar->guide_id = $request->guide;
+        $guide = Guide::where('name', $request->guide)->where('dept_id', $request->dept)->where('college_id', $request->college)->first();
+        
+        $scholar->guide_id = $guide->id;
         $scholar->external = $external;
         $scholar->internal = $internal;
         if ($request->course_work == '0') {
