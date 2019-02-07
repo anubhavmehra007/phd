@@ -1,42 +1,14 @@
 @extends('main')
 
-@section('titlle','| New Scholar Entry')
+@section('titlle','| New Guide Entry')
 
 
 @section('content')
-<script type='text/javascript'>
-  function showMarksFields() {
-    var cw = document.getElementById('cw');
-    var marks = document.getElementById('marks');
-    if (cw.value == '1') {
-      marks.style.display = 'block';
-      marks.innerHTML = `
-      <div class='form-row'>
-          <div class='col-md-6'>
-            <div class='form-group'>  
-              {{Form::label('internal', 'Internal Marks')}}                   
-              {{Form::number('internal', null, array('id' => 'internal','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
-             </div>
-            </div>
-             <div class = 'col-md-6'>
-             <div class='form-group'>                                              
-              {{Form::label('external', 'External Marks')}}
-              {{Form::number('external', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
-            </div>
-          </div>
-        </div>`;
-    }
-    else {
 
-      marks.style.display = 'none';
-      marks.innerHTML = null;
-    }
-  }
-</script>
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="{{ url('/scholars') }}">Scholars</a>
+        <a href="{{ url('/guides') }}">Guides</a>
     </li>
     <li class="breadcrumb-item active">New Entry</li>
     </ol>
@@ -86,14 +58,37 @@
       </div>
       {!! Form::close() !!} 
    
-      
-      <br />
-     
-      <br />
-    
-   
-    
-    
+@endsection
 
+@section('scripts')
+<script type='text/javascript'>
+  function showMarksFields() {
+    var cw = document.getElementById('cw');
+    var marks = document.getElementById('marks');
+    if (cw.value == '1') {
+      marks.style.display = 'block';
+      marks.innerHTML = `
+      <div class='form-row'>
+          <div class='col-md-6'>
+            <div class='form-group'>  
+              {{Form::label('internal', 'Internal Marks')}}                   
+              {{Form::number('internal', null, array('id' => 'internal','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+             </div>
+            </div>
+             <div class = 'col-md-6'>
+             <div class='form-group'>                                              
+              {{Form::label('external', 'External Marks')}}
+              {{Form::number('external', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+            </div>
+          </div>
+        </div>`;
+    }
+    else {
+
+      marks.style.display = 'none';
+      marks.innerHTML = null;
+    }
+  }
+</script>    
 @endsection
 

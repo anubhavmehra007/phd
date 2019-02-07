@@ -19,17 +19,6 @@
     
     </ol>
 
-    <!-- Icon Cards-->
-    <div class="row ">
-            <div class="col-md-2">
-                    <a href="{{ route('scholars.create') }}" class="btn btn-primary btn-lg ">New Scholar&rsquo;s Entry</a>
-            </div>    
-            <div class="col-md-12">
-                    <hr>
-                </div>
-    
-    </div>
-
     <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>

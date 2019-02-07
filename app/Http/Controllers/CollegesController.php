@@ -13,7 +13,7 @@ class CollegesController extends Controller
      */
     public function index()
     {
-        return "College";
+        return view('college.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class CollegesController extends Controller
      */
     public function create()
     {
-        //
+        return view('college.createcollege');
     }
 
     /**

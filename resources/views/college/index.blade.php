@@ -1,9 +1,12 @@
 @extends('main')
 
-@section('titlle','| Guides')
+@section('titlle','| colleges')
 
 @section('stylesheets')
+
+
     {!! Html::style('css/dataTables.bootstrap4.css') !!} 
+
 @endsection
 
 @section('content')
@@ -11,53 +14,39 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
     <li class="breadcrumb-item active">
-        <a href="#">Guides Details</a>
+        <a href="#">List of Colleges</a>
     </li>
     
     </ol>
 
     <!-- Icon Cards-->
     
+
     <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Guides</div>
+              Scholars</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                        <th>Name</th>
-                      <th>College</th>
-                      <th>Department</th>
-                      <th>Total Scholars</th>
+                        <th>S.No</th>
+                        <th>College Name</th>
+                        <th>No. of Guides</th>
+                        <th>No. of Scholars</th>                        
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Name</th>
-                      <th>College</th>
-                      <th>Department</th>
-                      <th>Total Scholars</th>
-                      
-                    </tr>
+                      <th>S.No</th>
+                      <th>College Name</th>
+                      <th>No. of Guides</th>
+                      <th>No. of Scholars</th>                        
+                  </tr>
                   </tfoot>
                   <tbody>
-                    @if(count($data) > 0)
-
-                      @foreach($data as $datum)
-                        <tr>
-                          
-                          <td>{{$datum['guide_name']}}</td>
-                          <td>{{$datum['college_name']}}</td>
-                          <td>{{$datum['dept_name']}}</td>
-                          <td>{{$datum['scholars']}}</td>
-                          
-                          
-                        </tr>
-
-                    @endforeach
-                    @endif
+                    
                   </tbody>
                 </table>
               </div>
