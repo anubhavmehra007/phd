@@ -28,7 +28,7 @@ class ScholarsController extends Controller
             $dept = Dept::find( $dept_id);
             $scholar_data = array('name' => $scholar->name, 'guide' => $guide->name, 'dept' =>
             $dept->name, 'college' => $college->name, 'yoj' => $scholar->y_o_j, 'yoc' => $scholar->y_o_c, 
-            'eta' => $scholar->eta, 'course' => $scholar->course_work);
+            'eta' => $scholar->eta, 'course' => $scholar->course_work, 'internal' => $scholar->internal, 'external' => $scholar->external);
             array_push($data, $scholar_data);
 
 

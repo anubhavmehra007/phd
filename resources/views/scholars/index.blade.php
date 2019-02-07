@@ -83,6 +83,16 @@
                               Not Complete
                               @else
                               Completed
+                              
+                              <table>
+                              <tr>
+                              <th>Internals</th><th>External</th>
+                            </tr>
+                            <tr>
+                              <td>{{$datum['internal']}}</td>
+                              <td>{{$datum['external']}}</td>
+                            </tr>
+                            </table>
                               @endif
                              
                              </td>
