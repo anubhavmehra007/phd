@@ -15,5 +15,9 @@ class Guide extends Model
     }
     public function college(){
         return $this->belongsTo("App\College");
+
+    }
+    public function desig() {
+        return $this->belongsTo("App\Desig");
     }
 }
