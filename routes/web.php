@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'PagesController@index');
+Route::get('/email', 'PagesController@email');
 
 
 Route::resource('/guides', 'GuidesController');
