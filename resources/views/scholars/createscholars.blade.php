@@ -38,6 +38,20 @@
                 </div>
               </div>
               <div class="form-row">
+                <div class="col-md-6">
+                  <div class="form-group">  
+                    {{Form::label('father name', 'Father&rsquo;s Name')}}                   
+                    {{Form::text('father_name', null, array('id' => 'father_name','class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Father Name', 'autofocus'=>'autofocus' ) )}} 
+                   </div>
+                  </div>
+                   <div class = 'col-md-6'>
+                   <div class="form-group">                                              
+                    {{Form::label('mobile', 'Mobile Number')}}
+                    {{Form::text('mobile_no', null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Mobile Number ') )}}                    
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
                 <div class="col-md-3">
                   <div class="form-group">
                     {{Form::label('y_o_j', 'Year of Joining')}}
@@ -57,9 +71,21 @@
                     </div>
                   </div>
                 </div>
-              
-              <div class="form-group">
-                  <div class="form-row">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <div class="form-group">  
+                      {{Form::label('rollno', 'Roll No.')}}                   
+                      {{Form::text('roll_num', null, array('id' => 'roll_num','class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Roll Number', 'autofocus'=>'autofocus' ) )}} 
+                     </div>
+                    </div>
+                     <div class = 'col-md-6'>
+                     <div class="form-group">                                              
+                      {{Form::label('enrnum', 'Enrollment Number')}}
+                      {{Form::text('enroll_num', null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Enrollment Number ') )}}                    
+                    </div>
+                  </div>
+                </div>
+              <div class="form-row">                  
                     <div class="col-md-6">
                       <div class="form-group">                         
                         {{Form::label('c_w_c_s', 'Course Work Completion Status')}}                     
@@ -72,14 +98,12 @@
                         {{Form::label('college', 'College')}}
                         {{Form::select('college',$data['cd'], null, array('class' => 'form-control college-name', 'id' => 'college', 'required' => 'required', 'placeholder'=>'Select College', 'onchange' => 'fillGuides()') )}}                    
                       </div>
-                    </div>
-                  </div>
+                    </div>                  
                 </div>
-                <div class = 'form-group' id = 'marks' style ='display:none;'>
+                <div class = 'form-row' id = 'marks' style ='display:none;'>
                
                 </div>
-                <div class="form-group">
-                    <div class="form-row">
+                <div class="form-row">                    
                       <div class="col-md-6">
                         <div class="form-group">                          
                           {{Form::label('dept', 'Department')}}                     
@@ -89,8 +113,7 @@
                       <div class="col-md-6">
                         <div class="form-group" id = "guides" >                                                   
                         </div>
-                      </div>
-                    </div>
+                      </div>                   
                   </div>
             {{Form::submit('Create',  ['class' => 'btn btn-primary btn-block'])}}
                   
@@ -114,17 +137,46 @@
       <div class='form-row'>
           <div class='col-md-6'>
             <div class='form-group'>  
-              {{Form::label('internal', 'Internal Marks')}}                   
-              {{Form::number('internal', null, array('id' => 'internal','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+              {{Form::label('internal1', 'Internal Marks (Paper 1)')}}                   
+              {{Form::number('internal_p1', null, array('id' => 'internal1','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
              </div>
             </div>
              <div class = 'col-md-6'>
              <div class='form-group'>                                              
-              {{Form::label('external', 'External Marks')}}
-              {{Form::number('external', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+              {{Form::label('external1', 'External Marks (Paper 1)')}}
+              {{Form::number('external_p1', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
             </div>
           </div>
-        </div>`;
+        </div>
+        <div class='form-row'>
+          <div class='col-md-6'>
+            <div class='form-group'>  
+              {{Form::label('internal2', 'Internal Marks (Paper 2)')}}                   
+              {{Form::number('internal_p2', null, array('id' => 'internal2','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+             </div>
+            </div>
+             <div class = 'col-md-6'>
+             <div class='form-group'>                                              
+              {{Form::label('external2', 'External Marks (Paper 2)')}}
+              {{Form::number('external_p2', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+            </div>
+          </div>
+        </div>
+        <div class='form-row'>
+          <div class='col-md-6'>
+            <div class='form-group'>  
+              {{Form::label('internal3', 'Internal Marks (Paper 3)')}}                   
+              {{Form::number('internal_p3', null, array('id' => 'internal3','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+             </div>
+            </div>
+             <div class = 'col-md-6'>
+             <div class='form-group'>                                              
+              {{Form::label('external3', 'External Marks (Paper 3)')}}
+              {{Form::number('external_p3', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+            </div>
+          </div>
+        </div>
+        `;
     }
     else {
 

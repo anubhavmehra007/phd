@@ -33,7 +33,7 @@ class MakingNameUniqueInCollegeAndDept extends Migration
         Schema::table('colleges', function (Blueprint $table) {
             //
         });
-        Schema::table('colleges', function (Blueprint $table) {
+        Schema::table('depts', function (Blueprint $table) {
             //
         });
     }

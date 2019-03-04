@@ -94,17 +94,19 @@ class ScholarsController extends Controller
             'guide' => 'required',
             'dept' => 'required',
             'college' => 'required',
-            'email' => 'required|email|unique:scholars,email'
+            'email' => 'required|email|unique:scholars,email',
+            'father_name' => 'required',
+            'mobile_no' => 'required|numeric|size:10',
         ]);
         //Changing all text values to uppercase letters.
         
         $request->name = strtoupper($request->name);
         
 
-       //Model Object Creation 
+        //Model Object Creation 
         $scholar = new Scholar();
         
-        if(isset($request->internal)) {
+        /*if(isset($request->internal)) {
             $internal = $request->internal;
         
         }
@@ -117,7 +119,7 @@ class ScholarsController extends Controller
         }
         else {
             $external = 0;
-        }
+        }*/
         
 
         
@@ -128,15 +130,33 @@ class ScholarsController extends Controller
         $scholar->y_o_c = $request->y_o_c;
         $scholar->eta = $request->eta;       
         $scholar->guide_id = $request->guide;
-        $scholar->external = $external;
-        $scholar->internal = $internal;
+        //$scholar->external = $external;
+        //$scholar->internal = $internal;
         if ($request->course_work == '0') {
             $scholar->course_work = 0;
+            $scholar->internal_1 = 0;
+            $scholar->internal_2 = 0;
+            $scholar->internal_3 = 0;
+            $scholar->external_1 = 0;
+            $scholar->external_2 = 0;
+            $scholar->external_3 = 0;
 
         }
         else {
             $scholar->course_work = 1;
+            $scholar->internal_1 = $request->internal_p1;
+            $scholar->internal_2 = $request->internal_p2;
+            $scholar->internal_3 = $request->internal_p3;
+            $scholar->external_1 = $request->external_p1;
+            $scholar->external_2 = $request->external_p2;
+            $scholar->external_3 = $request->external_p3;
         }
+
+        $scholar->enroll_no = $request->enroll_num;
+        $scholar->roll_no = $request->roll_num;
+        $scholar->father_name = $request->father_name;
+        $scholar->mobile_number = $request->mobile_no;
+
         $scholar->save();
         return redirect('/scholars')->with('success','Entry Done');
         

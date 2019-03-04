@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Dept;
+use Session;
 
 class DeptsController extends Controller
 {
@@ -13,8 +15,7 @@ class DeptsController extends Controller
      */
     public function index()
     {
-        //
-        return "Department";
+        return view('departments.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class DeptsController extends Controller
      */
     public function create()
     {
-        
+        return view('departments.createsubject');
     }
 
     /**
@@ -35,7 +36,17 @@ class DeptsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validation 
+        $this->validate($request,[
+            'subject_name' => 'required|unique:depts,name',            
+        ]);
+
+        //Model Object Creation 
+        $subject = new Dept;
+        $subject->name = strtoupper($request->subject_name);
+        $subject->save();
+        Session::flash('success','Subject Added!');
+        return redirect('/subjects/create');
     }
 
     /**

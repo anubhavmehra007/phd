@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\College;
+use Session;
 
 class CollegesController extends Controller
 {
@@ -34,7 +36,17 @@ class CollegesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validation 
+        $this->validate($request,[
+            'college_name' => 'required|unique:colleges,name',            
+        ]);
+
+        //Model Object Creation 
+        $college = new College;
+        $college->name = $request->college_name;
+        $college->save();
+        Session::flash('success','College Registered!');
+        return redirect('/colleges');
     }
 
     /**

@@ -6,7 +6,7 @@
             <span>Dashboard</span>
           </a>
         </li>
-        <li class="nav-item dropdown {{ Request::is('colleges/create' || 'colleges') ? "active" : "" }}">
+        <li class="nav-item dropdown {{ Request::is('colleges','colleges/create') ? "active" : "" }}">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-building"></i>
                 <span>Colleges</span></a>
@@ -17,12 +17,16 @@
                 </div>
           
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="charts.html">
+        <li class="nav-item dropdown {{ Request::is('departments') ? "active" : "" }}">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-store"></i>
-            <span>Departmens</span></a>
+            <span>Subjects</span></a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">            
+              <a class="dropdown-item" href="{{ url('/subjects') }}">Subject&rsquo;s Detail</a>
+              <a class="dropdown-item" href="{{ route('subjects.create') }}">Add New Subject</a>      
+            </div>
         </li>
-        <li class="nav-item dropdown {{ Request::is('guides' || 'guides/create') ? "active" : "" }}">
+        <li class="nav-item dropdown {{ Request::is('guides') ? "active" : "" }}">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-fw fa-user-tie"></i>
               <span>Guides</span></a>
@@ -32,7 +36,7 @@
               </div>
           
         </li>
-        <li class="nav-item dropdown {{ Request::is('scholars/create' || 'scholars') ? "active" : "" }}">
+        <li class="nav-item dropdown {{ Request::is('scholars') ? "active" : "" }}">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-user-graduate"></i>
             <span>Scholars</span></a>

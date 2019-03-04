@@ -2,6 +2,9 @@
 
 @section('titlle','| New Guide Entry')
 
+@section('stylesheets')
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+@endsection
 
 @section('content')
 
@@ -37,7 +40,7 @@
                 <div class="col-md-6">
                   <div class="form-group">  
                     {{Form::label('college', 'College')}}                   
-                    {{Form::select('college', $data['cd'],null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Select College') )}} 
+                    {{Form::select('college', $data['cd'],null, array('class' => 'form-control college-name', 'required' => 'required', 'placeholder'=>'Select College') )}} 
                    </div>
                   </div>
                    <div class = 'col-md-6'>
@@ -89,6 +92,13 @@
       marks.innerHTML = null;
     }
   }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.college-name').select2();
+  });
+
 </script>    
 @endsection
 

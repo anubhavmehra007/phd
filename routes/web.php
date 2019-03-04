@@ -19,7 +19,7 @@ Route::resource('/guides', 'GuidesController');
 
 Route::resource('/scholars', 'ScholarsController');
 
-Route::resource('/depts', 'DeptsController');
+Route::resource('/subjects', 'DeptsController');
 
 Route::resource('/colleges', 'CollegesController');
 
