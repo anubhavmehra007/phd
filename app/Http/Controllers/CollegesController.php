@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\College;
+use App\Guide;
+use App\Scholar;
 use Session;
 
 class CollegesController extends Controller
@@ -15,8 +17,11 @@ class CollegesController extends Controller
      */
     public function index()
     {
-        return view('college.index');
-    }
+        $colleges = College::all();
+        //$guides   = Guide::all();
+        //$scholars = Scholar::all();
+        return view('college.index')->with('colleges',$colleges);
+     }
 
     /**
      * Show the form for creating a new resource.
