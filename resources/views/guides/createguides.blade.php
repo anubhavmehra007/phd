@@ -23,18 +23,34 @@
                    <div class="form-group">
                 {!!Form::open(['action' => 'GuidesController@store', 'method' => 'POST']) !!}
               <div class="form-row">
+                  <div class = 'col-md-6'>
+                      <div class="form-group">                                              
+                       {{Form::label('designtion', 'Designation')}}
+                       {{Form::select('designtion', $data['designation'],null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Select Designation') )}}                    
+                     </div>
+                   </div>
                 <div class="col-md-6">
                   <div class="form-group">  
                     {{Form::label('name', 'Name')}}                   
                     {{Form::text('name', null, array('id' => 'name','class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Name', 'autofocus'=>'autofocus' ) )}} 
                    </div>
                   </div>
-                   <div class = 'col-md-6'>
-                   <div class="form-group">                                              
-                    {{Form::label('email', 'Email')}}
-                    {{Form::text('email', null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Email') )}}                    
+                   
+              </div>
+              <div class="form-row">
+                  <div class = 'col-md-6'>
+                      <div class="form-group">                                              
+                       {{Form::label('email', 'Email')}}
+                       {{Form::text('email', null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Email') )}}                    
+                     </div>
+                   </div>
+                <div class="col-md-6">
+                    <div class="form-group">                                              
+                        {{Form::label('mobile', 'Mobile Number')}}
+                        {{Form::text('mobile_no', null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Mobile Number ') )}}                    
+                      </div>
                   </div>
-                </div>
+                   
               </div>
               <div class="form-row">
                 <div class="col-md-6">

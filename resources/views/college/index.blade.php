@@ -47,16 +47,10 @@
                   </tfoot>
                   <tbody>
                       @foreach($colleges as $college)
-                      <?php 
-                      $guides = \App\Guide::where('college_id',$college->id)->count(); 
-                      //$scholar = \App\Scholar::where('college_id',$college->id)->count();
-
-                      
-                      ?>
-                      <tr>
+                       <tr>
                         <td>{{ $college->id }}</td>
                         <td>{{ $college->name }}</td>
-                        <td>{{ $guides }}</td>
+                        <td>{{ $college->guides()->count() }}</td>
                         <td></td>                        
                       </tr>
                     @endforeach                    

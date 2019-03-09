@@ -17,7 +17,7 @@
     </ol>
 
     <!-- Icon Cards-->
-    
+    @include('inc.msg')
     <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>

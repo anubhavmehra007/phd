@@ -23,3 +23,5 @@ Route::resource('/subjects', 'DeptsController');
 
 Route::resource('/colleges', 'CollegesController');
 
+Route::resource('/designations', 'DesigController');
+

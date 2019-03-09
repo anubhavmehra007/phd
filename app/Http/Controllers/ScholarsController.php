@@ -96,7 +96,7 @@ class ScholarsController extends Controller
             'college' => 'required',
             'email' => 'required|email|unique:scholars,email',
             'father_name' => 'required',
-            'mobile_no' => 'required|numeric|size:10',
+            'mobile_no' => 'required|numeric',
         ]);
         //Changing all text values to uppercase letters.
         

@@ -7,6 +7,9 @@ use App\Scholar;
 use App\Guide;
 use App\Dept;
 use App\College;
+use App\Desig;
+use Session;
+
 
 class GuidesController extends Controller
 {
@@ -39,8 +42,11 @@ class GuidesController extends Controller
     {
         $colleges_db = College::all();
         $depts_db = Dept::all();
+        $desigs_db = Desig::all();        
         $colleges = array();
         $depts = array();
+        $desigs = array();
+       
         foreach($colleges_db as $college) {
             
             
@@ -51,7 +57,12 @@ class GuidesController extends Controller
            
             $depts["$dept->id"] = "$dept->name";
         }
-        $data = array('cd' => $colleges, 'dd' => $depts);
+
+        foreach($desigs_db as $desig) {
+           
+            $desigs["$desig->id"] = "$desig->post";
+        }
+        $data = array('cd' => $colleges, 'dd' => $depts, 'designation' => $desigs);
         
         return view('guides.createguides')->with('data', $data);
     }
@@ -69,15 +80,21 @@ class GuidesController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:guides,email',
             'college' => 'required',
-            'dept' => 'required'
+            'dept' => 'required',
+            'designtion' => 'required',
+            'mobile_no' => 'required|numeric'
         ]);
+
         $request->name = strtoupper($request->name);
         $guide = new Guide();
         $guide->name = $request->name;
         $guide->email = $request->email;
         $guide->dept_id = $request->dept;
         $guide->college_id = $request->college;
+        $guide->desig_id = $request->designtion;
+        $guide->mobile_number = $request->mobile_no;
         $guide->save();
+        Session::flash('success','Guide Added!');       
         return view('guides.index');
         
 
