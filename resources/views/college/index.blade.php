@@ -51,7 +51,11 @@
                         <td>{{ $college->id }}</td>
                         <td>{{ $college->name }}</td>
                         <td>{{ $college->guides()->count() }}</td>
-                        <td></td>                        
+                        @php $scholars_number = 0; @endphp
+                        @foreach($college->guides()->get() as $guides)
+                        @php $scholars_number+= $guides->scholars()->count(); @endphp 
+                        @endforeach
+                        <td>{{$scholars_number}}</td>                        
                       </tr>
                     @endforeach                    
                   </tbody>
