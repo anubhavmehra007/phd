@@ -80,35 +80,6 @@
 @endsection
 
 @section('scripts')
-<script type='text/javascript'>
-  function showMarksFields() {
-    var cw = document.getElementById('cw');
-    var marks = document.getElementById('marks');
-    if (cw.value == '1') {
-      marks.style.display = 'block';
-      marks.innerHTML = `
-      <div class='form-row'>
-          <div class='col-md-6'>
-            <div class='form-group'>  
-              {{Form::label('internal', 'Internal Marks')}}                   
-              {{Form::number('internal', null, array('id' => 'internal','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
-             </div>
-            </div>
-             <div class = 'col-md-6'>
-             <div class='form-group'>                                              
-              {{Form::label('external', 'External Marks')}}
-              {{Form::number('external', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
-            </div>
-          </div>
-        </div>`;
-    }
-    else {
-
-      marks.style.display = 'none';
-      marks.innerHTML = null;
-    }
-  }
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
   $(document).ready(function() {

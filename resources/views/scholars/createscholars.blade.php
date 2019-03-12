@@ -75,13 +75,13 @@
                   <div class="col-md-6">
                     <div class="form-group">  
                       {{Form::label('rollno', 'Roll No.')}}                   
-                      {{Form::text('roll_num', null, array('id' => 'roll_num','class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Roll Number', 'autofocus'=>'autofocus' ) )}} 
+                      {{Form::text('roll_num', null, array('id' => 'roll_num','class' => 'form-control', 'placeholder'=>'Enter Roll Number', 'autofocus'=>'autofocus' ) )}} 
                      </div>
                     </div>
                      <div class = 'col-md-6'>
                      <div class="form-group">                                              
                       {{Form::label('enrnum', 'Enrollment Number')}}
-                      {{Form::text('enroll_num', null, array('class' => 'form-control', 'required' => 'required', 'placeholder'=>'Enter Enrollment Number ') )}}                    
+                      {{Form::text('enroll_num', null, array('class' => 'form-control', 'placeholder'=>'Enter Enrollment Number ') )}}                    
                     </div>
                   </div>
                 </div>
