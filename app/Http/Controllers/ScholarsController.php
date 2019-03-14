@@ -20,12 +20,12 @@ class ScholarsController extends Controller
         $scholars = Scholar::all();
         $data = array();
         foreach($scholars as $scholar) {
-            $guide_id = $scholar->guide_id;
-            $guide = Guide::find( $guide_id);
-            $dept_id = $guide->dept_id;
-            $college_id = $guide->college_id;
-            $college = College::find( $college_id);
-            $dept = Dept::find( $dept_id);
+            
+            $guide = $scholar->guide()->get()->first();
+            
+            $dept = $guide->dept()->get()->first();
+            $college = $guide->college()->get()->first();
+            
             $scholar_data = array('name' => $scholar->name, 'guide' => $guide->name, 'dept' =>
             $dept->name, 'college' => $college->name, 'yoj' => $scholar->y_o_j, 'yoc' => $scholar->y_o_c, 
             'eta' => $scholar->eta, 'course' => $scholar->course_work, 'internal' => $scholar->internal, 'external' => $scholar->external);
