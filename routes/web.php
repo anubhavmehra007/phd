@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ThesisController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +14,9 @@
 */
 
 Route::get('/', 'PagesController@index');
-Route::get('/email', 'PagesController@email');
+Route::resource('/email', 'EmailsController');
+Route::resource('/thesis', 'ThesisController');
+Route::get('/thesis/create/{scholar_id}', 'ThesisController@create');
 
 
 Route::resource('/guides', 'GuidesController');
