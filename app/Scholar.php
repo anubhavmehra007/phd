@@ -11,4 +11,7 @@ class Scholar extends Model
     public function guide(){
         return $this->belongsTo("App\Guide");
     }
+    public function thesis() {
+        return $this->hasMany("App\Thesis");
+    }
 }

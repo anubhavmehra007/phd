@@ -36,6 +36,7 @@
                         <th>Guide</th>
                         <th>Dept</th>
                         <th>College</th>
+                        <th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -48,6 +49,8 @@
                       <th>Guide</th>
                       <th>Dept</th>
                       <th>College</th>
+                      
+                      <th>Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -88,7 +91,12 @@
                           <td>{{$datum['guide']}}</td>
                           <td>{{$datum['dept']}}</td>
                           <td>{{$datum['college']}}</td>
-                          
+                          <td><a href="/thesis/create/{{$datum ['id'] }}"><button class="btn btn-primary btn-sm">Submit Thesis</button></a>
+                          <br><br>
+                          <a href="/scholars/edit/{{$datum ['id'] }}"><button class="btn btn-info btn-sm">Edit</button></a>
+                          <br><br>
+                          <a href="/scholars/delete/{{$datum ['id'] }}"><button class="btn btn-danger btn-sm">Delete</button></a></td>
+
                         </tr>
 
                     @endforeach

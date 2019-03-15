@@ -26,7 +26,7 @@ class ScholarsController extends Controller
             $dept = $guide->dept()->get()->first();
             $college = $guide->college()->get()->first();
             
-            $scholar_data = array('name' => $scholar->name, 'guide' => $guide->name, 'dept' =>
+            $scholar_data = array('id' => $scholar->id,'name' => $scholar->name, 'guide' => $guide->name, 'dept' =>
             $dept->name, 'college' => $college->name, 'yoj' => $scholar->y_o_j, 'yoc' => $scholar->y_o_c, 
             'eta' => $scholar->eta, 'course' => $scholar->course_work, 'internal' => $scholar->internal, 'external' => $scholar->external);
             array_push($data, $scholar_data);
