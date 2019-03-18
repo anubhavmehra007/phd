@@ -17,24 +17,8 @@ class ScholarsController extends Controller
      */
     public function index()
     {
-        $scholars = Scholar::all();
-        $data = array();
-        foreach($scholars as $scholar) {
-            
-            $guide = $scholar->guide()->get()->first();
-            
-            $dept = $guide->dept()->get()->first();
-            $college = $guide->college()->get()->first();
-            
-            $scholar_data = array('id' => $scholar->id,'name' => $scholar->name, 'guide' => $guide->name, 'dept' =>
-            $dept->name, 'college' => $college->name, 'yoj' => $scholar->y_o_j, 'yoc' => $scholar->y_o_c, 
-            'eta' => $scholar->eta, 'course' => $scholar->course_work, 'internal' => $scholar->internal, 'external' => $scholar->external);
-            array_push($data, $scholar_data);
-
-
-        }
-
-       return view('scholars.index')->with('data', $data);
+        $scholars = Scholar::all();    
+         return view('scholars.index')->with('scholars', $scholars);
     }
     
 
@@ -106,32 +90,13 @@ class ScholarsController extends Controller
         //Model Object Creation 
         $scholar = new Scholar();
         
-        /*if(isset($request->internal)) {
-            $internal = $request->internal;
-        
-        }
-        else {
-            $internal = 0;
-        }
-        if(isset($request->external)) {
-            $external = $request->external;
-        
-        }
-        else {
-            $external = 0;
-        }*/
-        
-
-        
-
         $scholar->name = $request->name;
         $scholar->email = $request->email;
         $scholar->y_o_j = $request->y_o_j;
         $scholar->y_o_c = $request->y_o_c;
         $scholar->eta = $request->eta;       
         $scholar->guide_id = $request->guide;
-        //$scholar->external = $external;
-        //$scholar->internal = $internal;
+        
         if ($request->course_work == '0') {
             $scholar->course_work = 0;
             $scholar->internal_1 = 0;
@@ -159,10 +124,6 @@ class ScholarsController extends Controller
 
         $scholar->save();
         return redirect('/scholars')->with('success','Entry Done');
-        
-
-
-
 
     }
 
@@ -174,7 +135,8 @@ class ScholarsController extends Controller
      */
     public function show($id)
     {
-        //
+        $scholar = Scholar::find($id);
+        return view('scholars.show')->with('scholar',$scholar);
     }
 
     /**
@@ -185,7 +147,25 @@ class ScholarsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $scholar = Scholar::find($id);
+        $college_list = College::all();
+        $colleges=array();
+        foreach($college_list as $college){
+            $colleges[$college->id] = $college->name;
+        }
+        $subject_list = Dept::all();
+        $subjects=array();
+        foreach($subject_list as $subject){
+            $subjects[$subject->id] = $subject->name;
+        }
+        $guide_list=Guide::where('dept_id', '=', $scholar->guide->dept_id)
+                        ->where('college_id', '=', $scholar->guide->college_id)
+                        ->get();
+       $guides=array();
+        foreach($guide_list as $guide){
+            $guides[$guide->id] = $guide->name;
+        }
+       return view('scholars.edit')->with('scholar',$scholar)->with('colleges',$colleges)->with('subjects',$subjects)->with('guides',$guides);
     }
 
     /**
@@ -209,5 +189,20 @@ class ScholarsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ajaxRequest(Request $request)
+    {
+        $guide_list=Guide::where('dept_id', '=', $request->subject_id)
+                        ->where('college_id', '=', $request->clg_id)
+                        ->get();
+
+        $html=  '<label for="guide">Guide</label><select class="form-control" id="guides_list" required="required" name="guide"><option value="">Select Guide</option>';       
+        foreach($guide_list as $guide){
+            $html.= '<option value="'.$guide['id'].'">'.$guide['name'].'</option>';
+        }
+           $html.='</select>';                                      
+                        
+        return response()->json(['success'=>'done','guide_list'=>$html]);
     }
 }

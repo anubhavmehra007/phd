@@ -3,10 +3,7 @@
 @section('titlle','| scholars')
 
 @section('stylesheets')
-
-
-    {!! Html::style('css/dataTables.bootstrap4.css') !!} 
-
+    {!! Html::style('css/dataTables.bootstrap4.css') !!}
 @endsection
 
 @section('content')
@@ -28,79 +25,50 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Start Year</th>
-                        <th>Complete Year</th>
-                        <th>Estimated Year</th>
-                        <th>Course Work</th>
-                        <th>Guide</th>
-                        <th>Dept</th>
-                        <th>College</th>
-                        <th>Action</th>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Enrollment Year</th>                      
+                      <th>Guide</th>
+                      <th>Subject</th>
+                      <th>College</th>                      
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
+                      <th>#</th>
                       <th>Name</th>
-                      <th>Start Year</th>
-                      <th>Complete Year</th>
-                      <th>Estimated Year</th>
-                      <th>Course Work</th>
+                      <th>Enrollment Year</th>                      
                       <th>Guide</th>
-                      <th>Dept</th>
-                      <th>College</th>
-                      
+                      <th>Subject</th>
+                      <th>College</th>                      
                       <th>Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    @if(count($data) > 0)
-
-                      @foreach($data as $datum)
+                    
+                      @php $i=1; @endphp
+                      @foreach($scholars as $scholar)
                         <tr>
-                          
-                          <td>{{$datum['name']}}</td>
-                          <td>{{$datum['yoj']}}</td>
+                          <td>{{ $i }}</td>
+                          <td>{{$scholar->name}}</td>
+                          <td>{{$scholar->y_o_j}}</td>                       
+                          <td>{{$scholar->guide->name}}</td>
+                          <td>{{$scholar->guide->dept->name}}</td>
+                          <td>{{$scholar->guide->college->name}}</td>
                           <td>
-                           @if($datum['yoc'] == 0) 
-                           Not Complete
-                           @else
-                           {{$datum['yoc']}}
-                           @endif
-                          
-                          </td>
-                          <td>{{$datum['eta']}}</td>
-                          <td>
-                              @if($datum['course'] == 0) 
-                              Not Complete
-                              @else
-                              Completed
-                              
-                              <table>
-                              <tr>
-                              <th>Internals</th><th>External</th>
-                            </tr>
-                            <tr>
-                              <td>{{$datum['internal']}}</td>
-                              <td>{{$datum['external']}}</td>
-                            </tr>
-                            </table>
-                              @endif
-                             
-                             </td>
-                          <td>{{$datum['guide']}}</td>
-                          <td>{{$datum['dept']}}</td>
-                          <td>{{$datum['college']}}</td>
-                          <td><a href="/thesis/create/{{$datum ['id'] }}"><button class="btn btn-primary btn-sm">Submit Thesis</button></a>
+                            {{--<a href="/thesis/create/{{$datum ['id'] }}"><button class="btn btn-primary btn-sm">Submit Thesis</button></a>
                           <br><br>
                           <a href="/scholars/edit/{{$datum ['id'] }}"><button class="btn btn-info btn-sm">Edit</button></a>
                           <br><br>
-                          <a href="/scholars/delete/{{$datum ['id'] }}"><button class="btn btn-danger btn-sm">Delete</button></a></td>
-
+                          <a href="/scholars/delete/{{$datum ['id'] }}"><button class="btn btn-danger btn-sm">Delete</button></a>--}}
+                          {!! Html::linkRoute('scholars.show','View',array($scholar['id']),array('class'=> 'btn btn-info' )) !!}
+                        </td>
+                          
                         </tr>
-
+                    @php $i++; @endphp
                     @endforeach
-                    @endif
+                   
                   </tbody>
                 </table>
               </div>

@@ -29,3 +29,4 @@ Route::resource('/colleges', 'CollegesController');
 
 Route::resource('/designations', 'DesigController');
 
+Route::post('/scholars/findguide', 'ScholarsController@ajaxRequest');
