@@ -17,8 +17,9 @@
     <div class="card card-register mx-auto mt-5">
         <div class="card-header">Add New Designation</div>
         <div class="card-body">
+            {!!Form::open(['action' => 'DesigController@store', 'method' => 'POST']) !!}
                    <div class="form-group">
-                {!!Form::open(['action' => 'DesigController@store', 'method' => 'POST']) !!}
+               
                 <div class="form-row">
                     <div class="col-md-6">
                       <div class="form-group">  
@@ -37,13 +38,11 @@
                     
                   </div>
             {{Form::submit('Create',  ['class' => 'btn btn-primary btn-block'])}}
-   
-            
-          </form>
+            {!! Form::close() !!}
          
         </div>
       </div>
-      {!! Form::close() !!} 
+      
    
 @endsection
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Desig;
+use Illuminate\Validation\Rule;
+use Session;
 
 class DesigController extends Controller
 {
@@ -71,7 +73,8 @@ class DesigController extends Controller
      */
     public function edit($id)
     {
-        //
+        $designation = Desig::find($id);        
+        return view('designations.edit')->with('designation',$designation);
     }
 
     /**
@@ -83,7 +86,21 @@ class DesigController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Validation 
+       $this->validate($request,[
+        'post' => 'required|unique:desigs,post',
+        'post' => Rule::unique('desigs')->ignore($id, 'id'),
+        'no_of_scholars' => 'required|numeric',        
+        ]);
+
+        //Changing all text values to uppercase letters.    
+        $request->designation = strtoupper($request->designation);
+        //Model Object Creation 
+        $designation = Desig::find($id);;
+        $designation->post = $request->post;
+        $designation->no_of_scholars = $request->no_of_scholars;
+        $designation->save();
+        return redirect('/designations')->with('success','Designation Updated!');
     }
 
     /**

@@ -16,7 +16,7 @@
     <li class="breadcrumb-item active">Edit Entry</li>
     </ol>
     @include('inc.msg')
-    
+    <div class="alert alert-danger" style="display:none"></div>
     <div class="card card-register mx-auto mt-5">
         <div class="card-header">Edit/Update Scholar details</div>
         <div class="card-body">
@@ -210,13 +210,13 @@
           <div class='col-md-6'>
             <div class='form-group'>  
               {{Form::label('internal1', 'Internal Marks (Paper 1)')}}                   
-              {{Form::number('internal_1', null, array('id' => 'internal1','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+              {{Form::number('internal_1',$scholar->internal_1, array('id' => 'internal1','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
              </div>
             </div>
              <div class = 'col-md-6'>
              <div class='form-group'>                                              
               {{Form::label('external1', 'External Marks (Paper 1)')}}
-              {{Form::number('external_1', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+              {{Form::number('external_1', $scholar->external_1, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
             </div>
           </div>
         </div>
@@ -224,13 +224,13 @@
           <div class='col-md-6'>
             <div class='form-group'>  
               {{Form::label('internal2', 'Internal Marks (Paper 2)')}}                   
-              {{Form::number('internal_2', null, array('id' => 'internal2','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+              {{Form::number('internal_2', $scholar->internal_2, array('id' => 'internal2','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
              </div>
             </div>
              <div class = 'col-md-6'>
              <div class='form-group'>                                              
               {{Form::label('external2', 'External Marks (Paper 2)')}}
-              {{Form::number('external_2', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+              {{Form::number('external_2', $scholar->external_2, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
             </div>
           </div>
         </div>
@@ -238,13 +238,13 @@
           <div class='col-md-6'>
             <div class='form-group'>  
               {{Form::label('internal3', 'Internal Marks (Paper 3)')}}                   
-              {{Form::number('internal_3', null, array('id' => 'internal3','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+              {{Form::number('internal_3', $scholar->internal_3, array('id' => 'internal3','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
              </div>
             </div>
              <div class = 'col-md-6'>
              <div class='form-group'>                                              
               {{Form::label('external3', 'External Marks (Paper 3)')}}
-              {{Form::number('external_3', null, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+              {{Form::number('external_3', $scholar->external_3, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
             </div>
           </div>
         </div>
@@ -285,10 +285,19 @@ function selctGuide(){
          subject_id: subject_id         
       },
       success: function(result){
-         //console.log(result);
-         //alert(result.fir);
-         jQuery('.guide_list').html(result.guide_list);         
+        if(result.success){
+          jQuery('.guide_list').html(result.guide_list);     
+         }
+         else{
+          jQuery.each(result.errors, function(key, value){
+            jQuery('.alert-danger').show();
+            jQuery('.alert-danger').append('<p>'+value+'</p>');
+          });
+         }
+         console.log(result);
          jQuery('.loader').hide();
+         //alert(result.fir);
+         
       }
     });
   }  

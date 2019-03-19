@@ -39,7 +39,7 @@
                     <tr>
                       <td>{{ $desigsnaton->post }}</td>
                       <td>{{ $desigsnaton->no_of_scholars }}</td>
-                      <td></td>
+                      <td>{!! Html::linkRoute('designations.edit','Edit',array($desigsnaton['id']),array('class'=> 'btn btn-info' )) !!}</td>
                     </tr>                        
                     @endforeach
                   </tbody>

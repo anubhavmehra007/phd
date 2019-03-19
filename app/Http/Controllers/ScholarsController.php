@@ -7,6 +7,8 @@ use App\Scholar;
 use App\Guide;
 use App\Dept;
 use App\College;
+use Illuminate\Validation\Rule;
+use Session;
 
 class ScholarsController extends Controller
 {
@@ -177,7 +179,62 @@ class ScholarsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //validate the data
+       $this->validate($request,array(
+            'name' => 'required',
+            'email' => 'required|email|unique:scholars,email',
+            'email' => Rule::unique('scholars')->ignore($id, 'id'),
+            'father_name' => 'required',
+            'mobile_number' => 'required|numeric',
+            'y_o_j' => 'required',
+            'y_o_c' => 'required',
+            'eta' => 'required',
+            'course_work' => 'required',
+            'guide' => 'required',
+            'dept' => 'required',
+            'college' => 'required',      
+            ));            
+
+        //Changing all text values to uppercase letters.        
+        $request->name = strtoupper($request->name);        
+
+        //update in the database
+        $scholar=Scholar::find($id);        
+        $scholar->name = $request->name;
+        $scholar->email = $request->email;
+        $scholar->y_o_j = $request->y_o_j;
+        $scholar->y_o_c = $request->y_o_c;
+        $scholar->eta = $request->eta;       
+        $scholar->guide_id = $request->guide;
+        
+        if ($request->course_work == '0') {
+            $scholar->course_work = 0;
+            $scholar->internal_1 = 0;
+            $scholar->internal_2 = 0;
+            $scholar->internal_3 = 0;
+            $scholar->external_1 = 0;
+            $scholar->external_2 = 0;
+            $scholar->external_3 = 0;
+
+        }
+        else {            
+            $scholar->course_work = 1;
+            $scholar->internal_1 = $request->internal_1;
+            $scholar->internal_2 = $request->internal_2;
+            $scholar->internal_3 = $request->internal_3;
+            $scholar->external_1 = $request->external_1;
+            $scholar->external_2 = $request->external_2;
+            $scholar->external_3 = $request->external_3;
+        }
+
+        $scholar->enroll_no = $request->enroll_no;
+        $scholar->roll_no = $request->roll_no;
+        $scholar->father_name = $request->father_name;
+        $scholar->mobile_number = $request->mobile_number;
+        $scholar->save();
+        Session::flash('success','Scholar details updated successfully!');
+        //redirect to anothe page
+        return redirect()->route('scholars.show',$scholar->id);
     }
 
     /**
@@ -193,6 +250,16 @@ class ScholarsController extends Controller
 
     public function ajaxRequest(Request $request)
     {
+        //validate the data
+        $validator=\Validator::make($request->all(), [
+            'clg_id' => 'required',
+            'subject_id' => 'required',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
+
         $guide_list=Guide::where('dept_id', '=', $request->subject_id)
                         ->where('college_id', '=', $request->clg_id)
                         ->get();
@@ -203,6 +270,6 @@ class ScholarsController extends Controller
         }
            $html.='</select>';                                      
                         
-        return response()->json(['success'=>'done','guide_list'=>$html]);
+        return response()->json(['success'=>true,'guide_list'=>$html]);    
     }
 }

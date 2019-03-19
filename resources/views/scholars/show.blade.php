@@ -21,7 +21,7 @@
             <a href="#">Scholar Details</a>
         </li>    
     </ol>
-
+    @include('inc.msg')
     <ul class="nav nav-tabs" id="infoTab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="geninfo-tab" data-toggle="tab" href="#geninfo" role="tab" aria-controls="geninfo" aria-selected="true"><i class="fas fa-id-badge"></i> General</a>
