@@ -40,25 +40,21 @@
                       <th>Name</th>
                       <th>College</th>
                       <th>Department</th>
-                      <th>Total Scholars</th>                      
+                      <th>Action</th>                      
                     </tr>
                   </tfoot>
-                  <tbody>
-                    @if(count($data) > 0)
-
-                      @foreach($data as $datum)
+                  <tbody> 
+                      @php $i=1; @endphp                   
+                      @foreach($guides as $guide)
                         <tr>
-                          
-                          <td>{{$datum['guide_name']}}</td>
-                          <td>{{$datum['college_name']}}</td>
-                          <td>{{$datum['dept_name']}}</td>
-                          <td>{{$datum['scholars']}}</td>
-                          
-                          
+                          <td>{{$i}}</td>
+                          <td>{{$guide['name']}}</td>
+                          <td>{{$guide->college->name}}</td>
+                          <td>{{$guide->dept->name}}</td>
+                          <td>{!! Html::linkRoute('guides.show','View',array($guide['id']),array('class'=> 'btn btn-info' )) !!}</td>                     
                         </tr>
-
-                    @endforeach
-                    @endif
+                    @php $i++; @endphp
+                    @endforeach                    
                   </tbody>
                 </table>
               </div>

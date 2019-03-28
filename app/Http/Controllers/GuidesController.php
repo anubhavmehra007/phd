@@ -9,6 +9,7 @@ use App\Dept;
 use App\College;
 use App\Desig;
 use Session;
+use Illuminate\Validation\Rule;
 
 
 class GuidesController extends Controller
@@ -20,16 +21,8 @@ class GuidesController extends Controller
      */
     public function index()
     {
-        $guides = Guide::all();
-        $data = array();
-        foreach($guides as $guide) {
-            $college = College::find($guide->college_id);
-            $dept = Dept::find($guide->dept_id);
-            $no_of_scholars = Scholar::where('guide_id',$guide->id)->count();
-            array_push($data, ['guide_name' => $guide->name, 'college_name' => $college->name, 'dept_name' => $dept->name, 'scholars' => "$no_of_scholars"]);
-            
-        }
-        return view('guides.index')->with('data', $data);
+        $guides = Guide::all();        
+        return view('guides.index')->with('guides', $guides);
         
     }
 
@@ -95,8 +88,7 @@ class GuidesController extends Controller
         $guide->mobile_number = $request->mobile_no;
         $guide->save();
         Session::flash('success','Guide Added!');       
-        return view('guides.index');
-        
+        return view('guides.index');   
 
     }
 
@@ -108,7 +100,8 @@ class GuidesController extends Controller
      */
     public function show($id)
     {
-        
+        $guide = Guide::find($id);
+        return view('guides.show')->with('guide',$guide);
     }
 
     /**
@@ -119,7 +112,23 @@ class GuidesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $guide = Guide::find($id);
+        $college_list = College::all();
+        $colleges=array();
+        foreach($college_list as $college){
+            $colleges[$college->id] = $college->name;
+        }
+        $desigs_list = Desig::all();
+        $desigs=array();
+        foreach($desigs_list as $desig){
+            $desigs[$desig->id] = $desig->post;
+        }
+        $subject_list = Dept::all();
+        $subjects=array();
+        foreach($subject_list as $subject){
+            $subjects[$subject->id] = $subject->name;
+        }
+        return view('guides.edit')->with('guide',$guide)->with('colleges',$colleges)->with('subjects',$subjects)->with('designations',$desigs);
     }
 
     /**
@@ -131,7 +140,28 @@ class GuidesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:guides,email',
+            'email' => Rule::unique('guides')->ignore($id, 'id'),
+            'college_id' => 'required',
+            'dept_id' => 'required',
+            'desig_id' => 'required',
+            'mobile_number' => 'required|numeric'
+        ]);
+
+        $request->name = strtoupper($request->name);
+        $guide = Guide::find($id); 
+        $guide->name = $request->name;
+        $guide->email = $request->email;
+        $guide->dept_id = $request->dept_id;
+        $guide->college_id = $request->college_id;
+        $guide->desig_id = $request->desig_id;
+        $guide->mobile_number = $request->mobile_number;
+        $guide->save();
+        Session::flash('success','Guide details updated successfully!');
+        //redirect to anothe page
+        return redirect()->route('guides.show',$guide->id);         
     }
 
     /**
