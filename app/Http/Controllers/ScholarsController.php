@@ -88,8 +88,13 @@ class ScholarsController extends Controller
             'college' => 'required',
             'email' => 'required|email|unique:scholars,email',
             'father_name' => 'required',
-            'mobile_no' => 'required|numeric',
+            'mobile_no' => 'required|numeric|digits_between:10,10',
+            'degree' => 'required'
         ]);
+        $guide = Guide::find($request->guide);
+        if($guide->scholars()->count() == $guide->desig()->no_of_scholars) {
+            return response()->json(['errors'=> 'Guide cannot have any more scholars']);
+        }
         
         //Changing all text values to uppercase letters.
         
@@ -108,6 +113,7 @@ class ScholarsController extends Controller
         $scholar->guide_id = $request->guide;
         $scholar->dept_id = $request->dept;
         $scholar->college_id = $request->college;
+        $scholar->degree = $request->degree;
         
         if ($request->course_work == '0') {
             $scholar->course_work = 0;
@@ -195,16 +201,21 @@ class ScholarsController extends Controller
             'email' => 'required|email|unique:scholars,email',
             'email' => Rule::unique('scholars')->ignore($id, 'id'),
             'father_name' => 'required',
-            'mobile_number' => 'required|numeric',
+            'mobile_number' => 'required|numeric|digits_between:10,10',
             'y_o_j' => 'required',
             'y_o_c' => 'required',
             'eta' => 'required',
             'course_work' => 'required',
             'guide' => 'required',
             'dept' => 'required',
-            'college' => 'required',      
-            ));            
-
+            'college' => 'required',
+            'degree' => 'required',      
+            )); 
+            $guide = Guide::find($request->guide);
+        if($guide->scholars()->count() == $guide->desig()->no_of_scholars) {
+            return response()->json(['errors'=> 'Guide cannot have any more scholars']);
+        }
+        
         //Changing all text values to uppercase letters.        
         $request->name = strtoupper($request->name);        
 
@@ -216,6 +227,7 @@ class ScholarsController extends Controller
         $scholar->y_o_c = $request->y_o_c;
         $scholar->eta = $request->eta;       
         $scholar->guide_id = $request->guide;
+        $scholar->degree = $request->degree;
         
         if ($request->course_work == '0') {
             $scholar->course_work = 0;
@@ -241,6 +253,7 @@ class ScholarsController extends Controller
         $scholar->roll_no = $request->roll_no;
         $scholar->father_name = $request->father_name;
         $scholar->mobile_number = $request->mobile_number;
+        $scholar->last_edited_by = Auth::user()->email;
         $scholar->save();
         Session::flash('success','Scholar details updated successfully!');
         //redirect to anothe page
@@ -268,6 +281,10 @@ class ScholarsController extends Controller
 
         if ($validator->fails()){
             return response()->json(['errors'=>$validator->errors()->all()]);
+        }
+        $guide = Guide::find($request->guide);
+        if($guide->scholars()->count() == $guide->desig()->no_of_scholars) {
+            return response()->json(['errors'=> 'Guide cannot have any more scholars']);
         }
 
         $guide_list=Guide::where('dept_id', '=', $request->subject_id)

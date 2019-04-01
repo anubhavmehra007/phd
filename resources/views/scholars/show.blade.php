@@ -77,6 +77,10 @@
                             <td>{{ $scholar->guide->dept->name }}</td>                            
                         </tr>
                         <tr>                            
+                          <th scope="row">Degree</th>
+                          <td>{{ strtoupper($scholar->degree) }}</td>                            
+                      </tr>
+                        <tr>                            
                             <th scope="row">Guide Name</th>
                             <td>{{ $scholar->guide->name }}</td>                            
                         </tr>

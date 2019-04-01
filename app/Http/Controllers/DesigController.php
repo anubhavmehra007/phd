@@ -104,6 +104,7 @@ class DesigController extends Controller
         $designation = Desig::find($id);;
         $designation->post = $request->post;
         $designation->no_of_scholars = $request->no_of_scholars;
+        $designation->last_edited_by = Auth::user()->email;
         $designation->save();
         return redirect('/designations')->with('success','Designation Updated!');
     }

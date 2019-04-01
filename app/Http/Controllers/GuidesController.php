@@ -79,7 +79,7 @@ class GuidesController extends Controller
             'college' => 'required',
             'dept' => 'required',
             'designtion' => 'required',
-            'mobile_no' => 'required|numeric'
+            'mobile_no' => 'required|numeric|digits_between:10,10'
         ]);
 
         $request->name = strtoupper($request->name);
@@ -153,7 +153,7 @@ class GuidesController extends Controller
             'college_id' => 'required',
             'dept_id' => 'required',
             'desig_id' => 'required',
-            'mobile_number' => 'required|numeric'
+            'mobile_number' => 'required|numeric|digits_between:10,10'
         ]);
 
         $request->name = strtoupper($request->name);
@@ -164,6 +164,7 @@ class GuidesController extends Controller
         $guide->college_id = $request->college_id;
         $guide->desig_id = $request->desig_id;
         $guide->mobile_number = $request->mobile_number;
+        $guide->last_edited_by = Auth::user()->email;
         $guide->save();
         Session::flash('success','Guide details updated successfully!');
         //redirect to anothe page

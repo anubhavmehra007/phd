@@ -92,6 +92,11 @@
                         {{Form::select('course_work', array('0' => 'Incomplete', '1' => 'Completed' ), null, array('class' => 'form-control', 'id' => 'cw','onchange' => 'showMarksFields()'))}} 
                       
                       </div>
+                      <div class="form-group">                         
+                        {{Form::label('degree', 'Degree')}}                     
+                        {{Form::select('degree', array('phd' => 'PHD', 'dphil' => 'D.Phil' ), null, array('class' => 'form-control', 'id' => 'cw','onchange' => 'showMarksFields()'))}} 
+                      
+                      </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">                                              
