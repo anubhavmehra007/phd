@@ -34,3 +34,4 @@ Route::post('/scholars/findguide', 'ScholarsController@ajaxRequest');
 
 Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');

@@ -30,6 +30,9 @@
           <a class="nav-link" id="schlr-tab" data-toggle="tab" href="#schlr" role="tab" aria-controls="schlr" aria-selected="false"><i class="fas fa-user-friends"></i>Scholars <span class="badge badge-primary">{{count($guide->scholars)}}</span></a>
         </li> 
         <li class="nav-item">
+            <a class="nav-link" id="add-info-tab" data-toggle="tab" href="#add-info" role="tab" aria-controls="addinfo" aria-selected="false"><i class="fas fa-info"></i> Additional Information</a>
+        </li>
+        <li class="nav-item ml-auto">
                 {!! Html::linkRoute('guides.edit',' Edit Details',array($guide->id),array('class'=> 'fas fa-edit nav-link')) !!}               
         </li>
       </ul>
@@ -93,6 +96,24 @@
             @endif
             
                        
-        </div>    
+        </div>
+        <div class="tab-pane fade" id="add-info"  role="tabpanel" aria-labelledby="addinfo-tab">
+            <table class="table table-striped">                        
+              <tbody>
+                  <tr>                            
+                      <th scope="row">Created At:</th>
+                      <td>{{ date('M j, Y h:ia',strtotime($guide->created_at)) }}</td>                            
+                  </tr>
+                  <tr>                            
+                    <th scope="row">Last Updated:</th>
+                    <td>{{ date('M j, Y h:ia',strtotime($guide->updated_at)) }}</td>                            
+                </tr>
+                <tr>                            
+                  <th scope="row">Last Updated By:</th>
+                  <td>{{ $guide->last_edited_by }}</td>                            
+              </tr>
+              </tbody>
+            </table>
+          </div>    
 @endsection
 

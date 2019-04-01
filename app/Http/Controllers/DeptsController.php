@@ -17,6 +17,7 @@ class DeptsController extends Controller
     {
         $this->middleware('auth:web');
     }
+    
     public function index()
     {
         return view('departments.index');

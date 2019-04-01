@@ -36,10 +36,14 @@
             <a class="nav-link" id="thesis-tab" data-toggle="tab" href="#thesis" role="tab" aria-controls="thesis" aria-selected="false"><i class="fas fa-book"></i> Thesis</a>
         </li>
         <li class="nav-item">
-                {!! Html::linkRoute('scholars.edit',' Edit Details',array($scholar->id),array('class'=> 'fas fa-edit nav-link')) !!}
-                {{--<a class="nav-link"  data-toggle="tab" href="" role="tab" aria-controls="thesis" aria-selected="false"><i class="fas fa-edit"></i> Edit Details</a>--}}
+          <a class="nav-link" id="add-info-tab" data-toggle="tab" href="#add-info" role="tab" aria-controls="addinfo" aria-selected="false"><i class="fas fa-info"></i> Additional Information</a>
+      </li>
+        <li class="nav-item ml-auto">
+                {!! Html::linkRoute('scholars.edit',' Edit Details',array($scholar->id),array('class'=> 'fas fa-edit nav-link ')) !!}
+                
         </li>
       </ul>
+      
       <div class="tab-content" id="infoTabContent">
         <div class="tab-pane fade show active" id="geninfo" role="tabpanel" aria-labelledby="geninfo-tab">         
                 <table class="table table-striped">                        
@@ -127,6 +131,24 @@
         </div>
         <div class="tab-pane fade" id="synopsis" role="tabpanel" aria-labelledby="synopsis-tab">synopsis detail</div>
         <div class="tab-pane fade" id="thesis"  role="tabpanel" aria-labelledby="thesis-tab">thesis detail</div>
+        <div class="tab-pane fade" id="add-info"  role="tabpanel" aria-labelledby="addinfo-tab">
+          <table class="table table-striped">                        
+            <tbody>
+                <tr>                            
+                    <th scope="row">Created At:</th>
+                    <td>{{ date('M j, Y h:ia',strtotime($scholar->created_at)) }}</td>                            
+                </tr>
+                <tr>                            
+                  <th scope="row">Last Updated:</th>
+                  <td>{{ date('M j, Y h:ia',strtotime($scholar->updated_at)) }}</td>                            
+              </tr>
+              <tr>                            
+                <th scope="row">Last Updated By:</th>
+                <td>{{ $scholar->last_edited_by }}</td>                            
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     
 
