@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class College extends Model
 {
     //
-    public $timestamps = false;
+    public $timestamps = true;
     public function guides() {
         
         return $this->hasMany("App\Guide");

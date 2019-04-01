@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Dept;
 use Session;
@@ -13,6 +13,10 @@ class DeptsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
     public function index()
     {
         return view('departments.index');
@@ -44,6 +48,7 @@ class DeptsController extends Controller
         //Model Object Creation 
         $subject = new Dept;
         $subject->name = strtoupper($request->subject_name);
+        $subject->last_edited_by = Auth::user()->email;
         $subject->save();
         Session::flash('success','Subject Added!');
         return redirect('/subjects/create');

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Scholar;
 use App\Guide;
@@ -10,6 +10,7 @@ use App\College;
 use Illuminate\Validation\Rule;
 use Session;
 
+
 class ScholarsController extends Controller
 {
     /**
@@ -17,6 +18,10 @@ class ScholarsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
     public function index()
     {
         $scholars = Scholar::all();    
@@ -71,6 +76,7 @@ class ScholarsController extends Controller
     public function store(Request $request)
     {
         //Validation 
+        
         $this->validate($request,[
             'name' => 'required',
             'y_o_j' => 'required',
@@ -84,6 +90,7 @@ class ScholarsController extends Controller
             'father_name' => 'required',
             'mobile_no' => 'required|numeric',
         ]);
+        
         //Changing all text values to uppercase letters.
         
         $request->name = strtoupper($request->name);
@@ -96,8 +103,11 @@ class ScholarsController extends Controller
         $scholar->email = $request->email;
         $scholar->y_o_j = $request->y_o_j;
         $scholar->y_o_c = $request->y_o_c;
-        $scholar->eta = $request->eta;       
+        $scholar->eta = $request->eta;  
+        $scholar->last_edited_by = Auth::user()->email;     
         $scholar->guide_id = $request->guide;
+        $scholar->dept_id = $request->dept;
+        $scholar->college_id = $request->college;
         
         if ($request->course_work == '0') {
             $scholar->course_work = 0;

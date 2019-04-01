@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Scholar extends Model
 {
     //
-    public $timestamps = false;
+    public $timestamps = true;
     public function guide(){
         return $this->belongsTo("App\Guide");
     }

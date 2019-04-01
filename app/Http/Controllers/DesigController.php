@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Desig;
 use Illuminate\Validation\Rule;
@@ -14,6 +14,10 @@ class DesigController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
     public function index()
     {
         $desigsnatons = Desig::all();
@@ -49,6 +53,7 @@ class DesigController extends Controller
         //Model Object Creation 
         $designation = new Desig();
         $designation->post = $request->designation;
+        $designation->last_edited_by = Auth::user()->email;
         $designation->no_of_scholars = $request->num_of_sch;
         $designation->save();
         return redirect('/designations')->with('success','Designation Created!');

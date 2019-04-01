@@ -10,7 +10,7 @@ use App\College;
 use App\Desig;
 use Session;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Facades\Auth;
 
 class GuidesController extends Controller
 {
@@ -19,6 +19,10 @@ class GuidesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
     public function index()
     {
         $guides = Guide::all();        
@@ -86,9 +90,11 @@ class GuidesController extends Controller
         $guide->college_id = $request->college;
         $guide->desig_id = $request->designtion;
         $guide->mobile_number = $request->mobile_no;
+        $guide->last_edited_by = Auth::user()->email;
         $guide->save();
         Session::flash('success','Guide Added!');       
-        return view('guides.index');   
+        $guides = Guide::all();        
+        return view('guides.index')->with('guides', $guides);   
 
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\College;
 use App\Guide;
@@ -15,6 +15,10 @@ class CollegesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
     public function index()
     {
         $colleges = College::all();
@@ -49,6 +53,7 @@ class CollegesController extends Controller
         //Model Object Creation 
         $college = new College;
         $college->name = $request->college_name;
+        $college->last_edited_by = Auth::user()->email;
         $college->save();
         Session::flash('success','College Registered!');
         return redirect('/colleges');

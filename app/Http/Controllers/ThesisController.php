@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Thesis;
 
@@ -12,6 +12,10 @@ class ThesisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
     public function index()
     {
         //
@@ -46,6 +50,7 @@ class ThesisController extends Controller
         $thesis = new Thesis();
         $thesis->title = $title;
         $thesis->scholar_id = $request->scholar_id;
+        $thesis->last_edited_by = Auth::user()->email;
         $thesis->app_status = 0;
         $thesis->save();
         
