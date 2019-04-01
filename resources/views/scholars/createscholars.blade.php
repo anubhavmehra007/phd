@@ -90,31 +90,38 @@
                       <div class="form-group">                         
                         {{Form::label('c_w_c_s', 'Course Work Completion Status')}}                     
                         {{Form::select('course_work', array('0' => 'Incomplete', '1' => 'Completed' ), null, array('class' => 'form-control', 'id' => 'cw','onchange' => 'showMarksFields()'))}} 
-                      
                       </div>
+                        <div class = 'form-row' id = 'marks' style ='display:none;'>
+               
+                        </div>
+                      
+                    </div>
+                    <div class="col-md-6">
                       <div class="form-group">                         
                         {{Form::label('degree', 'Degree')}}                     
                         {{Form::select('degree', array('phd' => 'PHD', 'dphil' => 'D.Phil' ), null, array('class' => 'form-control', 'id' => 'cw','onchange' => 'showMarksFields()'))}} 
                       
                       </div>
                     </div>
+                  </div>
+                    <div class="form-row"> 
                     <div class="col-md-6">
                       <div class="form-group">                                              
                         {{Form::label('college', 'College')}}
                         {{Form::select('college',$data['cd'], null, array('class' => 'form-control college-name', 'id' => 'college', 'required' => 'required', 'placeholder'=>'Select College', 'onchange' => 'fillGuides()') )}}                    
                       </div>
                     </div>                  
-                </div>
-                <div class = 'form-row' id = 'marks' style ='display:none;'>
-               
-                </div>
-                <div class="form-row">                    
+                
+                
+                                    
                       <div class="col-md-6">
                         <div class="form-group">                          
                           {{Form::label('dept', 'Department')}}                     
                           {{Form::select('dept',$data['dd'], null, array('class' => 'form-control','id' =>'dept', 'required' => 'required', 'placeholder'=>'Select Department','onchange' => 'fillGuides()' ) )}} 
                          </div>
                       </div>
+                    </div>
+                    <div class="form-row">
                       <div class="col-md-6">
                         <div class="form-group" id = "guides" >                                                   
                         </div>
