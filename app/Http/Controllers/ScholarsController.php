@@ -92,8 +92,9 @@ class ScholarsController extends Controller
             'degree' => 'required'
         ]);
         $guide = Guide::find($request->guide);
-        if($guide->scholars()->count() == $guide->desig()->no_of_scholars) {
-            return response()->json(['errors'=> 'Guide cannot have any more scholars']);
+        if($guide->scholars()->count() == $guide->desig()->first()->no_of_scholars) {
+           
+            return "Not Allowed";
         }
         
         //Changing all text values to uppercase letters.
@@ -212,8 +213,11 @@ class ScholarsController extends Controller
             'degree' => 'required',      
             )); 
             $guide = Guide::find($request->guide);
-        if($guide->scholars()->count() == $guide->desig()->no_of_scholars) {
-            return response()->json(['errors'=> 'Guide cannot have any more scholars']);
+            
+        if($guide->scholars()->count() == $guide->desig()->first()->no_of_scholars) {
+            Session:flash('errors', 'Guide cannot have any more scholars');
+            return redirect()->back();
+
         }
         
         //Changing all text values to uppercase letters.        
@@ -283,7 +287,7 @@ class ScholarsController extends Controller
             return response()->json(['errors'=>$validator->errors()->all()]);
         }
         $guide = Guide::find($request->guide);
-        if($guide->scholars()->count() == $guide->desig()->no_of_scholars) {
+        if($guide->scholars()->count() == $guide->desig()->first()->no_of_scholars) {
             return response()->json(['errors'=> 'Guide cannot have any more scholars']);
         }
 
