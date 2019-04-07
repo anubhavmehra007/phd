@@ -33,16 +33,18 @@
                     <tr>
                         <th>S.No</th>
                         <th>College Name</th>
-                        <th>No. of Guides</th>
-                        <th>No. of Scholars</th>                        
+                        <th>No. of Supervisor</th>
+                        <th>No. of Scholars</th> 
+                        <th>Action</th>                       
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th>S.No</th>
                       <th>College Name</th>
-                      <th>No. of Guides</th>
-                      <th>No. of Scholars</th>                        
+                      <th>No. of Supervisor</th>
+                      <th>No. of Scholars</th>  
+                      <th>Action</th>                       
                   </tr>
                   </tfoot>
                   <tbody>
@@ -55,7 +57,8 @@
                         @foreach($college->guides()->get() as $guides)
                         @php $scholars_number+= $guides->scholars()->count(); @endphp 
                         @endforeach
-                        <td>{{$scholars_number}}</td>                        
+                        <td>{{$scholars_number}}</td> 
+                        <td>{!! Html::linkRoute('colleges.show','View',array($college->id),array('class'=> 'btn btn-info' )) !!}</td>                      
                       </tr>
                     @endforeach                    
                   </tbody>

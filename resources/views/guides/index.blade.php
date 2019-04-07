@@ -28,18 +28,22 @@
                   <thead>
                     <tr>
                       <th>#</th>
+                      <th>Designation</th>
                       <th>Name</th>
                       <th>College</th>
                       <th>Department</th>
-                      <th>Total Scholars</th>
+                      <th>No. of Scholars</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th>#</th>
+                      <th>Designation</th>
                       <th>Name</th>
                       <th>College</th>
                       <th>Department</th>
+                      <th>No. of Scholars</th>
                       <th>Action</th>                      
                     </tr>
                   </tfoot>
@@ -48,9 +52,11 @@
                       @foreach($guides as $guide)
                         <tr>
                           <td>{{$i}}</td>
+                          <td>{{$guide->desig->post}}</td>
                           <td>{{$guide['name']}}</td>
                           <td>{{$guide->college->name}}</td>
                           <td>{{$guide->dept->name}}</td>
+                          <td>{{count($guide->scholars)}}</td>
                           <td>{!! Html::linkRoute('guides.show','View',array($guide['id']),array('class'=> 'btn btn-info' )) !!}</td>                     
                         </tr>
                     @php $i++; @endphp

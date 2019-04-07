@@ -8,8 +8,10 @@ class College extends Model
 {
     //
     public $timestamps = true;
-    public function guides() {
-        
+    public function guides() {        
         return $this->hasMany("App\Guide");
+    }
+    public function scholars() {        
+        return $this->hasMany("App\Scholar");
     }
 }

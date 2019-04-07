@@ -89,24 +89,20 @@
                     <div class="col-md-6">
                       <div class="form-group">                         
                         {{Form::label('c_w_c_s', 'Course Work Completion Status')}}                     
-                        {{Form::select('course_work', array('0' => 'Incomplete', '1' => 'Completed' ), null, array('class' => 'form-control cw_fun', 'id' => 'cw'))}} 
-                      
-                      </div>
-                      <div class="form-group">                         
-                        {{Form::label('degree', 'Degree')}}                     
-                        {{Form::select('degree', array('phd' => 'PHD', 'dphil' => 'D.Phil' ), null, array('class' => 'form-control', 'id' => 'cw','onchange' => 'showMarksFields()'))}} 
-                      
+                        {{Form::select('course_work', array('0' => 'Incomplete', '1' => 'Completed' ), null, array('class' => 'form-control cw_fun', 'id' => 'cw'))}}                      
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group">                                              
-                        {{Form::label('college', 'College')}}
-                        {{Form::select('college',$colleges, $scholar->guide->college->id, array('class' => 'form-control college-name call_gd', 'id' => 'college', 'required' => 'required', 'placeholder'=>'Select College') )}}                    
+                      <div class="col-md-6">
+                      <div class="form-group">                         
+                        {{Form::label('degree', 'Degree')}}                     
+                        {{Form::select('degree', array('phd' => 'PHD', 'dphil' => 'D.Phil' ), null, array('class' => 'form-control', 'id' => 'degree', 'required' => 'required', 'placeholder'=>'Select Degree'))}}                      
                       </div>
-                    </div>                  
+                      </div>
+                    
+                                     
                 </div>                
                 @if ($scholar->course_work)
-                <div class = 'form-row' id = 'marks' style="display: block;">
+                <div class = '' id = 'marks' style="display: block;">
                 <div class='form-row'>
                     <div class='col-md-6'>
                       <div class='form-group'>  
@@ -151,26 +147,34 @@
                   </div>
             </div>
                 @else
-                <div class = 'form-row' id = 'marks' style ='display:none;'>
+                <div class = '' id = 'marks' style ='display:none;'>
                
                 </div>                    
                 @endif
                 
-                <div class="form-row">                    
+                <div class="form-row">  
+                    <div class="col-md-6">
+                        <div class="form-group">                                              
+                          {{Form::label('college', 'College')}}
+                          {{Form::select('college',$colleges, $scholar->guide->college->id, array('class' => 'form-control college-name call_gd', 'id' => 'college', 'required' => 'required', 'placeholder'=>'Select College') )}}                    
+                        </div>
+                      </div>                   
                       <div class="col-md-6">
                         <div class="form-group">                          
                           {{Form::label('dept', 'Subject')}}                     
                           {{Form::select('dept',$subjects, $scholar->guide->dept->id, array('class' => 'form-control chng_subjct call_gd','id' =>'dept', 'required' => 'required', 'placeholder'=>'Select Subject' ) )}} 
                          </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group guide_list" id = "guides">  
-                            {{Form::label('guide', 'Guide')}}                     
-                            {{Form::select('guide',$guides, $scholar->guide_id, array('class' => 'form-control','id' =>'guides_list', 'required' => 'required', 'placeholder'=>'Select Guide' ) )}}                                                  
-                        </div>
-                        
-                      </div> 
+                      </div>                 
                                       
+                  </div>
+                  <div class="form-row guide_data">
+                      <div class="col-md-6">
+                          <div class="form-group guide_list" id = "guides">  
+                              {{Form::label('guide', 'Supervisior')}}                     
+                              {{Form::select('guide',$guides, $scholar->guide_id, array('class' => 'form-control guide_list_ok','id' =>'guides_list_id', 'required' => 'required', 'placeholder'=>'Select Supervisior' ) )}}   
+                            </div>    
+                                                  
+                        </div>                   
                   </div>
                   <div class="loader" style="display:none">
                       <div class="spinner-border float-right" role="status">
@@ -184,7 +188,9 @@
                           {!! Html::linkRoute('scholars.show','Cancel',array($scholar->id),array('class'=> 'btn btn-danger btn-block' )) !!}                                                   
                         </div>                  
                       <div class="col-md-6">
-                          {{Form::submit('Update',  ['class' => 'btn btn-primary btn-block'])}}
+                          {{Form::hidden('ptype','update',['class' =>'input-ptype'])}}
+                          {{Form::hidden('sid',$scholar->id,['class' =>'input-sid'])}}                        
+                          {{Form::submit('Update',  ['class' => 'btn btn-go btn-primary btn-block'])}}
                       </div>
                      
                       </div>                   
@@ -201,112 +207,68 @@
 @endsection
 
 @section('scripts')
-<script type='text/javascript'>
-  
-  jQuery('.cw_fun').on("change", showMarksFields);  
-  function showMarksFields() {
-    var cw = jQuery( this ).val();
-    //jQuery("#marks").css("display", "none");
-    var marks = jQuery("#marks");
-    if (cw == '1') {
-      marks.css("display", "block");      
-      var mark_HTML = `
-      <div class='form-row'>
-          <div class='col-md-6'>
-            <div class='form-group'>  
-              {{Form::label('internal1', 'Internal Marks (Paper 1)')}}                   
-              {{Form::number('internal_1',$scholar->internal_1, array('id' => 'internal1','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
-             </div>
-            </div>
-             <div class = 'col-md-6'>
-             <div class='form-group'>                                              
-              {{Form::label('external1', 'External Marks (Paper 1)')}}
-              {{Form::number('external_1', $scholar->external_1, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
-            </div>
-          </div>
-        </div>
-        <div class='form-row'>
-          <div class='col-md-6'>
-            <div class='form-group'>  
-              {{Form::label('internal2', 'Internal Marks (Paper 2)')}}                   
-              {{Form::number('internal_2', $scholar->internal_2, array('id' => 'internal2','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
-             </div>
-            </div>
-             <div class = 'col-md-6'>
-             <div class='form-group'>                                              
-              {{Form::label('external2', 'External Marks (Paper 2)')}}
-              {{Form::number('external_2', $scholar->external_2, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
-            </div>
-          </div>
-        </div>
-        <div class='form-row'>
-          <div class='col-md-6'>
-            <div class='form-group'>  
-              {{Form::label('internal3', 'Internal Marks (Paper 3)')}}                   
-              {{Form::number('internal_3', $scholar->internal_3, array('id' => 'internal3','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
-             </div>
-            </div>
-             <div class = 'col-md-6'>
-             <div class='form-group'>                                              
-              {{Form::label('external3', 'External Marks (Paper 3)')}}
-              {{Form::number('external_3', $scholar->external_3, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
-            </div>
-          </div>
-        </div>
-        `;
-        marks.html(mark_HTML);
-    }
-    else {
-      marks.css("display", "none");
-      marks.html('');
-    }
-  }
-  
-  
-</script>  
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+@include('scholars.jsscholar')
 <script>
-    jQuery(document).ready(function() {
-      jQuery('.college-name').select2();
-      jQuery('.chng_subjct').select2();
-  });
-
-jQuery('.call_gd').on("change", selctGuide);
-function selctGuide(){
-  var clg_id = jQuery('.college-name').val();
-  var subject_id=jQuery('.chng_subjct').val();  
-  if(!subject_id || !clg_id){
-   jQuery('.guide_list').html('');   
+  jQuery('.cw_fun').on("change", showMarksFields);  
+function showMarksFields() {
+  var cw = jQuery( this ).val();
+  //jQuery("#marks").css("display", "none");
+  var marks = jQuery("#marks");
+  if (cw == '1') {
+    marks.css("display", "block");      
+    var mark_HTML = `
+    <div class='form-row'>
+        <div class='col-md-6'>
+          <div class='form-group'>  
+            {{Form::label('internal1', 'Internal Marks (Paper 1)')}}                   
+            {{Form::number('internal_1',$scholar->internal_1, array('id' => 'internal1','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+           </div>
+          </div>
+           <div class = 'col-md-6'>
+           <div class='form-group'>                                              
+            {{Form::label('external1', 'External Marks (Paper 1)')}}
+            {{Form::number('external_1', $scholar->external_1, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+          </div>
+        </div>
+      </div>
+      <div class='form-row'>
+        <div class='col-md-6'>
+          <div class='form-group'>  
+            {{Form::label('internal2', 'Internal Marks (Paper 2)')}}                   
+            {{Form::number('internal_2', $scholar->internal_2, array('id' => 'internal2','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+           </div>
+          </div>
+           <div class = 'col-md-6'>
+           <div class='form-group'>                                              
+            {{Form::label('external2', 'External Marks (Paper 2)')}}
+            {{Form::number('external_2', $scholar->external_2, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+          </div>
+        </div>
+      </div>
+      <div class='form-row'>
+        <div class='col-md-6'>
+          <div class='form-group'>  
+            {{Form::label('internal3', 'Internal Marks (Paper 3)')}}                   
+            {{Form::number('internal_3', $scholar->internal_3, array('id' => 'internal3','required' => 'required','class' => 'form-control', 'placeholder'=>'Enter Marks', 'autofocus'=>'autofocus' ) )}} 
+           </div>
+          </div>
+           <div class = 'col-md-6'>
+           <div class='form-group'>                                              
+            {{Form::label('external3', 'External Marks (Paper 3)')}}
+            {{Form::number('external_3', $scholar->external_3, array('class' => 'form-control','required' => 'required', 'placeholder'=>'Enter Marks') )}}                    
+          </div>
+        </div>
+      </div>
+      `;
+      marks.html(mark_HTML);
   }
-  else{
-    jQuery('.loader').show();    
-   jQuery.ajax({
-      url: "{{ url('/scholars/findguide') }}",
-      method: 'post',
-      data: {
-        _token: '<?php echo csrf_token() ?>',
-         clg_id: clg_id,
-         subject_id: subject_id         
-      },
-      success: function(result){
-        if(result.success){
-          jQuery('.guide_list').html(result.guide_list);     
-         }
-         else{
-          jQuery.each(result.errors, function(key, value){
-            jQuery('.alert-danger').show();
-            jQuery('.alert-danger').append('<p>'+value+'</p>');
-          });
-         }
-         console.log(result);
-         jQuery('.loader').hide();
-         //alert(result.fir);
-         
-      }
-    });
-  }  
+  else {
+    marks.css("display", "none");
+    marks.html('');
+  }
 }
+
 </script>
+
 @endsection
 

@@ -29,10 +29,10 @@
         <li class="nav-item dropdown {{ Request::is('guides') ? "active" : "" }}">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-fw fa-user-tie"></i>
-              <span>Guides</span></a>
+              <span>Supervisors</span></a>
               <div class="dropdown-menu" aria-labelledby="pagesDropdown">            
-                <a class="dropdown-item" href="{{ url('/guides') }}">Guide&rsquo;s Detail</a>
-                <a class="dropdown-item" href="{{ route('guides.create') }}">Add New Guide</a>      
+                <a class="dropdown-item" href="{{ url('/guides') }}">Supervisor&rsquo;s Detail</a>
+                <a class="dropdown-item" href="{{ route('guides.create') }}">Add New Supervisor</a>      
               </div>
           
         </li>

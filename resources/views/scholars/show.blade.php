@@ -70,19 +70,19 @@
                         </tr>
                         <tr>                            
                                 <th scope="row">College</th>
-                                <td>{{ $scholar->guide->college->name }}</td>                            
+                                <td>{{ $scholar->college->name }}</td>                            
                             </tr>
                         <tr>                            
                             <th scope="row">Subject</th>
-                            <td>{{ $scholar->guide->dept->name }}</td>                            
+                            <td>{{ $scholar->dept->name }}</td>                            
                         </tr>
                         <tr>                            
                           <th scope="row">Degree</th>
                           <td>{{ strtoupper($scholar->degree) }}</td>                            
                       </tr>
                         <tr>                            
-                            <th scope="row">Guide Name</th>
-                            <td>{{ $scholar->guide->name }}</td>                            
+                            <th scope="row">Supervisor Name</th>
+                            <td>{!! Html::linkRoute('guides.show',$scholar->guide->name,array($scholar->guide_id),array('class'=> '' )) !!}</td>                            
                         </tr>
                         <tr>                            
                             <th scope="row">Enrollment Number</th>
@@ -148,13 +148,17 @@
               </tr>
               <tr>                            
                 <th scope="row">Last Updated By:</th>
-                <td>{{ $scholar->last_edited_by }}</td>                            
+                <td>          
+                    <a href="#" data-trigger="focus" data-toggle="popover" data-placement="bottom" data-html="true" title="User Info" data-content="<span>{{ $last_edited->name }}</span><hr><span>{{ $last_edited->mobile_no }}</span>">{{ $scholar->last_edited_by }}</a>      
+                  
+                </td> 
+                                          
             </tr>
             </tbody>
           </table>
         </div>
       </div>
-    
-
 @endsection
+
+
 

@@ -8,6 +8,7 @@ use App\Guide;
 use App\Dept;
 use App\College;
 use App\Desig;
+use App\User;
 use Session;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -107,7 +108,8 @@ class GuidesController extends Controller
     public function show($id)
     {
         $guide = Guide::find($id);
-        return view('guides.show')->with('guide',$guide);
+        $last_edited = User::where('email',$guide->last_edited_by)->first();
+        return view('guides.show')->with('guide',$guide)->with('last_edited',$last_edited);
     }
 
     /**

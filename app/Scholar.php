@@ -14,4 +14,10 @@ class Scholar extends Model
     public function thesis() {
         return $this->hasMany("App\Thesis");
     }
+    public function college(){
+        return $this->belongsTo("App\College");
+    }
+    public function dept(){
+        return $this->belongsTo("App\Dept");
+    }
 }

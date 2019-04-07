@@ -16,7 +16,7 @@
     <li class="breadcrumb-item active">New Entry</li>
     </ol>
     @include('inc.msg')
-    
+    <div class="alert alert-danger" style="display:none"></div>
     <div class="card card-register mx-auto mt-5">
         <div class="card-header">Register A Scholar</div>
         <div class="card-body">
@@ -97,53 +97,76 @@
                     <div class="col-md-6">
                       <div class="form-group">                         
                         {{Form::label('degree', 'Degree')}}                     
-                        {{Form::select('degree', array('phd' => 'PHD', 'dphil' => 'D.Phil' ), null, array('class' => 'form-control', 'id' => 'cw','onchange' => 'showMarksFields()'))}} 
+                        {{Form::select('degree', array('phd' => 'PHD', 'dphil' => 'D.Phil' ), null, array('class' => 'form-control', 'id' => 'degree', 'required' => 'required', 'placeholder'=>'Select Degree'))}}
                       
                       </div>
                     </div>
-                    <div class = 'form-row' id = 'marks' style ='display:none;'>
+                    
+                  </div>
+                  <div class = '' id = 'marks' style ='display:none;'>
                
-                    </div>
                   </div>
                     <div class="form-row"> 
                     <div class="col-md-6">
                       <div class="form-group">                                              
                         {{Form::label('college', 'College')}}
-                        {{Form::select('college',$data['cd'], null, array('class' => 'form-control college-name', 'id' => 'college', 'required' => 'required', 'placeholder'=>'Select College', 'onchange' => 'fillGuides()') )}}                    
+                        {{Form::select('college',$data['cd'], null, array('class' => 'form-control college-name call_gd', 'id' => 'college', 'required' => 'required', 'placeholder'=>'Select College', /*'onchange' => 'fillGuides()'*/) )}}                    
                       </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">                          
-                          {{Form::label('dept', 'Department')}}                     
-                          {{Form::select('dept',$data['dd'], null, array('class' => 'form-control','id' =>'dept', 'required' => 'required', 'placeholder'=>'Select Department','onchange' => 'fillGuides()' ) )}} 
+                          {{Form::label('dept', 'Subject')}}                     
+                          {{Form::select('dept',$data['dd'], null, array('class' => 'form-control chng_subjct call_gd','id' =>'dept', 'required' => 'required', 'placeholder'=>'Select Subject',/*'onchange' => 'fillGuides()'*/ ) )}} 
                          </div>
                       </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row guide_data">
+                      <div class="col-md-6">
+                          <div class="form-group guide_list" id = "guides">  
+                              {{Form::label('guide', 'Supervisior')}}                     
+                              {{Form::select('guide',array(),null, array('class' => 'form-control guide_list_ok','id' =>'guides_list_id', 'required' => 'required', 'placeholder'=>'Select Supervisior','disabled' ) )}}   
+                            </div> 
+                                                        
+                        </div>                   
+                  </div>
+                  <div class="loader" style="display:none">
+                    <div class="spinner-border float-right" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                </div>
+                    {{--<div class="form-row">
                       <div class="col-md-6">
                         <div class="form-group" id = "guides" >                                                   
                         </div>
                       </div>                   
+                  </div>--}}
+                  <div class="form-row">  
+                    <div class="col-md-12">
+                      {{Form::hidden('ptype','store',['class' =>'input-ptype'])}}
+                      {{Form::hidden('sid',null,['class' =>'input-sid'])}}                        
+                      {{Form::submit('Create',  ['class' => 'btn btn-go btn-primary btn-block'])}}
+                    </div>
                   </div>
-            {{Form::submit('Create',  ['class' => 'btn btn-primary btn-block'])}}
+            
                   
             
           </form>
          
         </div>
       </div>
-      {!! Form::close() !!} 
-   
+      {!! Form::close() !!}   
 @endsection
 
 @section('scripts')
+@include('scholars.jsscholar')
 <script type='text/javascript'>
   function showMarksFields() {
     var cw = document.getElementById('cw');
-    var marks = document.getElementById('marks');
+    var marks = /*document.getElementById('marks');*/jQuery('#marks');
     if (cw.value == '1') {
-      marks.style.display = 'block';
-      marks.innerHTML = `
+      /*marks.style.display = 'block';*/
+      marks.show();
+      var marks_HTML = `
       <div class='form-row'>
           <div class='col-md-6'>
             <div class='form-group'>  
@@ -187,15 +210,17 @@
           </div>
         </div>
         `;
+        marks.html(marks_HTML);
     }
     else {
-
-      marks.style.display = 'none';
-      marks.innerHTML = null;
+      marks.hide();
+      marks.empty();
+      /*marks.style.display = 'none';
+      marks.innerHTML = null;*/
     }
   }
-  function fillGuides() {
-
+</script>
+ {{-- function fillGuides() {
     var college = document.getElementById('college').value;
     var dept = document.getElementById('dept').value;
     var guide = document.getElementById('guides');
@@ -203,13 +228,12 @@
     var data = data[college][dept];
 
     if (data != undefined){
-      var pre = "<label for='guide'>Guide</label><select class = 'form-control' name='guide'>";
+      var pre = "<label for='guide'>Supervisior</label><select id='guides_list_id' required class = 'form-control' name='guide'><option>Select Supervisior</option>";
       var mid = "";
       var post = "</select>";
         for(var key in data) {
         mid += `<option value = ${data[key]['id']}>${data[key]['name']}</option>`;
-      }
-      
+      }      
       guide.innerHTML = pre + mid + post;
     }
     
@@ -222,8 +246,9 @@
 <script>
   $(document).ready(function() {
     $('.college-name').select2();
+    $('.subject-name').select2();
   });
 
-</script>
+</script>--}}
 @endsection
 

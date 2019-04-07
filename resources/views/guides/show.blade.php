@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('titlle','|'.$guide->name.'')
+@section('titlle','| '.$guide->name.'')
 
 @section('stylesheets')
     <style type='text/css'>
@@ -110,10 +110,11 @@
                 </tr>
                 <tr>                            
                   <th scope="row">Last Updated By:</th>
-                  <td>{{ $guide->last_edited_by }}</td>                            
+                  <td><a href="#" data-trigger="focus" data-toggle="popover" data-placement="bottom" data-html="true" title="User Info" data-content="<span>{{ $last_edited->name }}</span><hr><span>{{ $last_edited->mobile_no }}</span>">{{ $guide->last_edited_by }}</a></td>                            
               </tr>
               </tbody>
             </table>
-          </div>    
+          </div>
+      </div>    
 @endsection
 

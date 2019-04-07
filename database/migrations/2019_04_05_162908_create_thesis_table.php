@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddingLastEditedByToThesis extends Migration
+class CreateThesisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class AddingLastEditedByToThesis extends Migration
      */
     public function up()
     {
-        Schema::table('thesis', function (Blueprint $table) {
-            //
+        Schema::create('thesis', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer("scholar_id");
+            $table->string("title");
+            $table->integer("app_status");
             $table->string('last_edited_by');
+            $table->timestamps();
+           
         });
     }
 
@@ -26,9 +31,6 @@ class AddingLastEditedByToThesis extends Migration
      */
     public function down()
     {
-        Schema::table('thesis', function (Blueprint $table) {
-            //
-            $table->dropIfExists('last_edited_by');
-        });
+        Schema::dropIfExists('thesis');
     }
 }

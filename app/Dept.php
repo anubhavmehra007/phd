@@ -11,5 +11,8 @@ class Dept extends Model
     public function guides(){
         return $this->hasMany('App\Guide');
     }
+    public function scholars(){
+        return $this->hasMany('App\Scholar');
+    }
 
 }

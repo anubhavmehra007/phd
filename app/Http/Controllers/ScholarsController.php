@@ -7,6 +7,7 @@ use App\Scholar;
 use App\Guide;
 use App\Dept;
 use App\College;
+use App\User;
 use Illuminate\Validation\Rule;
 use Session;
 
@@ -91,12 +92,11 @@ class ScholarsController extends Controller
             'mobile_no' => 'required|numeric|digits_between:10,10',
             'degree' => 'required'
         ]);
-        $guide = Guide::find($request->guide);
-        if($guide->scholars()->count() == $guide->desig()->first()->no_of_scholars) {
-           
-            return "Not Allowed";
-        }
         
+        if($this->checkGuideCap($request->guide,'store','')){
+            Session::flash('error', 'No more Scholar allowed under this supervisor!');            
+            return redirect()->back();
+        }
         //Changing all text values to uppercase letters.
         
         $request->name = strtoupper($request->name);
@@ -155,7 +155,8 @@ class ScholarsController extends Controller
     public function show($id)
     {
         $scholar = Scholar::find($id);
-        return view('scholars.show')->with('scholar',$scholar);
+        $last_edited = User::where('email',$scholar->last_edited_by)->first();        
+        return view('scholars.show')->with('scholar',$scholar)->with('last_edited',$last_edited);
     }
 
     /**
@@ -212,13 +213,11 @@ class ScholarsController extends Controller
             'college' => 'required',
             'degree' => 'required',      
             )); 
-            $guide = Guide::find($request->guide);
             
-        if($guide->scholars()->count() == $guide->desig()->first()->no_of_scholars) {
-            Session:flash('errors', 'Guide cannot have any more scholars');
-            return redirect()->back();
-
-        }
+            if($this->checkGuideCap($request->guide,'update',$id)){
+                Session::flash('error', 'No more Scholar allowed under this supervisor!');            
+                return redirect()->back();
+            }   
         
         //Changing all text values to uppercase letters.        
         $request->name = strtoupper($request->name);        
@@ -231,6 +230,8 @@ class ScholarsController extends Controller
         $scholar->y_o_c = $request->y_o_c;
         $scholar->eta = $request->eta;       
         $scholar->guide_id = $request->guide;
+        $scholar->dept_id = $request->dept;
+        $scholar->college_id = $request->college;
         $scholar->degree = $request->degree;
         
         if ($request->course_work == '0') {
@@ -275,9 +276,25 @@ class ScholarsController extends Controller
         //
     }
 
+    public function checkGuideCap($guide_id,$check_type,$scholar_id)
+    {      
+        $guide = Guide::find($guide_id);
+            if($check_type=='update'){
+                $query = $guide->scholars()->whereNotIn('id',[$scholar_id])->count() == $guide->desig()->first()->no_of_scholars;
+            }
+            elseif($check_type=='store'){
+                $query = $guide->scholars()->count() == $guide->desig()->first()->no_of_scholars;
+            }            
+            
+            if($query){            
+            return true;
+        }
+    }
+
     public function ajaxRequest(Request $request)
     {
-        //validate the data
+        if($request->request_type=='guide_list'){
+            //validate the data
         $validator=\Validator::make($request->all(), [
             'clg_id' => 'required',
             'subject_id' => 'required',
@@ -286,21 +303,32 @@ class ScholarsController extends Controller
         if ($validator->fails()){
             return response()->json(['errors'=>$validator->errors()->all()]);
         }
-        $guide = Guide::find($request->guide);
+
+        /*$guide = Guide::find($request->guide);
         if($guide->scholars()->count() == $guide->desig()->first()->no_of_scholars) {
             return response()->json(['errors'=> 'Guide cannot have any more scholars']);
-        }
+        }*/
 
-        $guide_list=Guide::where('dept_id', '=', $request->subject_id)
-                        ->where('college_id', '=', $request->clg_id)
-                        ->get();
+        $guide_data=Guide::where('dept_id', '=', $request->subject_id)
+                        ->where('college_id', '=', $request->clg_id);
+        $guide_count=$guide_data->count();                
+        $guide_list=$guide_data->get();
 
-        $html=  '<label for="guide">Guide</label><select class="form-control" id="guides_list" required="required" name="guide"><option value="">Select Guide</option>';       
+        $html=  '<label for="guide">Supervisior</label><select class="form-control guide_list_ok" id="guides_list_id" required="required" name="guide"><option value="">Select Supervisior</option>';       
         foreach($guide_list as $guide){
             $html.= '<option value="'.$guide['id'].'">'.$guide['name'].'</option>';
         }
            $html.='</select>';                                      
                         
-        return response()->json(['success'=>true,'guide_list'=>$html]);    
+        return response()->json(['success'=>true,'guide_list'=>$html,'guide_count'=>$guide_count]); 
+        }
+
+        elseif($request->request_type=='guide_limit_check')
+        {
+            if($this->checkGuideCap($request->guide_id,$request->check_for,$request->scholar_id)){
+                return response()->json(['success'=>true,'msg'=>'No more Scholar allowed under this supervisor!']); 
+            } 
+        }
+          
     }
 }

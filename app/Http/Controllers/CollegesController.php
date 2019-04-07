@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\College;
+use App\User;
 use App\Guide;
 use App\Scholar;
 use Session;
@@ -49,10 +51,10 @@ class CollegesController extends Controller
         $this->validate($request,[
             'college_name' => 'required|unique:colleges,name',            
         ]);
-
+        
         //Model Object Creation 
         $college = new College;
-        $college->name = $request->college_name;
+        $college->name = strtoupper($request->college_name);
         $college->last_edited_by = Auth::user()->email;
         $college->save();
         Session::flash('success','College Registered!');
@@ -67,7 +69,9 @@ class CollegesController extends Controller
      */
     public function show($id)
     {
-        //
+        $college = College::find($id);
+        $last_edited = User::where('email',$college->last_edited_by)->first();
+        return view('college.show')->with('college',$college)->with('last_edited',$last_edited);
     }
 
     /**
@@ -90,7 +94,19 @@ class CollegesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Validation 
+        $this->validate($request,[
+            'name' => 'required|unique:colleges,name',
+            'name' => Rule::unique('colleges')->ignore($id, 'id'),            
+        ]);
+
+        //Model Object Creation 
+        $college = College::find($id);;
+        $college->name = strtoupper($request->name);
+        $college->last_edited_by = Auth::user()->email;
+        $college->save();
+        Session::flash('success','College Detail Updated!');
+        return redirect()->back();
     }
 
     /**
