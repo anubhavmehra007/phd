@@ -134,7 +134,40 @@
             @endif
         </div>
         <div class="tab-pane fade" id="synopsis" role="tabpanel" aria-labelledby="synopsis-tab">synopsis detail</div>
-        <div class="tab-pane fade" id="thesis"  role="tabpanel" aria-labelledby="thesis-tab">thesis detail</div>
+        <div class="tab-pane fade" id="thesis"  role="tabpanel" aria-labelledby="thesis-tab">
+            {!! Html::linkRoute('thesis.createthesis','Add New Thesis',array($scholar['id']),array('class'=> 'btn btn-info' )) !!}
+          <table class='table table-striped'>
+          
+        @foreach($scholar->thesis as $thesis)
+        <tr>
+          <th scope='row'>Title:</th>
+          <td>{{$thesis->title}}</td>
+          
+        
+        
+          <th scope='row'>Approval Status:</th>
+          @if($thesis->app_status == 0)
+          <td>Not Approved</td>
+          @endif
+          @if($thesis->app_status == 1)
+          <td>Approved</td>
+          @endif
+          @if($thesis->app_status == 2)
+          <td>Rejected</td>
+          @endif
+          @if($thesis->app_status == 0)
+          <td>{!! Html::linkRoute('thesis.approve','Approve',array($thesis->id),array('class'=> 'btn btn-info' )) !!}</td>
+          <td>{!! Html::linkRoute('thesis.reject','Reject',array($thesis->id),array('class'=> 'btn btn-danger' )) !!}</td>
+          @endif
+        </tr>
+        
+        @endforeach
+     
+            
+
+
+        </table>
+      </div>
         <div class="tab-pane fade" id="add-info"  role="tabpanel" aria-labelledby="addinfo-tab">
           <table class="table table-striped">                        
             <tbody>

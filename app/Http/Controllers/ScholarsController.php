@@ -10,6 +10,7 @@ use App\College;
 use App\User;
 use Illuminate\Validation\Rule;
 use Session;
+use Illuminate\Support\Facades\Input;
 
 
 class ScholarsController extends Controller
@@ -19,9 +20,11 @@ class ScholarsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function __construct()
     {
         $this->middleware('auth:web');
+        
     }
     public function index()
     {
@@ -167,7 +170,10 @@ class ScholarsController extends Controller
      */
     public function edit($id)
     {
+        
         $scholar = Scholar::find($id);
+        
+        
         $college_list = College::all();
         $colleges=array();
         foreach($college_list as $college){
@@ -198,10 +204,9 @@ class ScholarsController extends Controller
     public function update(Request $request, $id)
     {
         //validate the data
-       $this->validate($request,array(
+       $validator = \Validator::make($request->all(),array(
             'name' => 'required',
-            'email' => 'required|email|unique:scholars,email',
-            'email' => Rule::unique('scholars')->ignore($id, 'id'),
+            'email' => "required|email|unique:scholars,email,$id",
             'father_name' => 'required',
             'mobile_number' => 'required|numeric|digits_between:10,10',
             'y_o_j' => 'required',
@@ -213,6 +218,9 @@ class ScholarsController extends Controller
             'college' => 'required',
             'degree' => 'required',      
             )); 
+            if($validator->fails()) {
+                return redirect()->back()->withInput(Input::all())->withErrors($validator->errors()->all());
+            }
             
             if($this->checkGuideCap($request->guide,'update',$id)){
                 Session::flash('error', 'No more Scholar allowed under this supervisor!');            

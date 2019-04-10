@@ -15,8 +15,12 @@ use App\Http\Controllers\ThesisController;
 
 Route::get('/', 'PagesController@index');
 Route::resource('/email', 'EmailsController');
+Route::get('/thesis/create/{id}', 'ThesisController@create')->name('thesis.createthesis');
 Route::resource('/thesis', 'ThesisController');
-Route::get('/thesis/create/{scholar_id}', 'ThesisController@create');
+Route::get('/thesis/approve/{id}', 'ThesisController@approve')->name('thesis.approve');
+Route::post('/thesis/reject', 'ThesisController@reject');
+Route::get('/thesis/reject/{id}', 'ThesisController@rejectForm')->name('thesis.reject');
+
 
 
 Route::resource('/guides', 'GuidesController');

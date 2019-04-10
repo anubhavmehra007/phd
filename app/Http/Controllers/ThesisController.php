@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Thesis;
+use App\Mail\thesisApproved;
+use App\Mail\thesisRejected;
+use Illuminate\Support\Facades\Mail;
 
 class ThesisController extends Controller
 {
@@ -26,11 +29,11 @@ class ThesisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($scholar_id)
+    public function create($id)
     {
         //
         
-        $data = array("scholar_id" => $scholar_id);
+        $data = array("scholar_id" => $id);
         return view("thesis.create")->with('data', $data);
     }
 
@@ -53,6 +56,7 @@ class ThesisController extends Controller
         $thesis->last_edited_by = Auth::user()->email;
         $thesis->app_status = 0;
         $thesis->save();
+        return redirect('/scholars/'.$request->scholar_id);
         
     }
 
@@ -99,5 +103,31 @@ class ThesisController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function approve($id) {
+        $thesis = Thesis::find($id);
+        $thesis->app_status = 1;
+        $thesis->last_edited_by = Auth::user()->email;
+        $thesis->save();
+        $scholar = $thesis->scholar()->first();
+        
+        Mail::to($scholar->email)->send(new thesisApproved($thesis));
+       
+        
+        return redirect('scholars/'.$scholar->id);
+
+
+    }
+    public function reject(Request $request) {
+        $thesis = Thesis::find($request->id);
+        $scholar = $thesis->scholar()->first();
+        $thesis->app_status = 2;
+        $thesis->last_edited_by = Auth::user()->email;
+        $thesis->save();
+        Mail::to($scholar->email)->send(new thesisRejected($thesis,$request->reason));
+        return redirect('scholars/'.$scholar->id);
+    }
+    public function rejectForm($id) {
+        return view('thesis.reject')->with('id',$id);
     }
 }

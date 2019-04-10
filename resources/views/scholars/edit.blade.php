@@ -156,13 +156,13 @@
                     <div class="col-md-6">
                         <div class="form-group">                                              
                           {{Form::label('college', 'College')}}
-                          {{Form::select('college',$colleges, $scholar->guide->college->id, array('class' => 'form-control college-name call_gd', 'id' => 'college', 'required' => 'required', 'placeholder'=>'Select College') )}}                    
+                          {{Form::select('college',$colleges, $scholar->college->id, array('class' => 'form-control college-name call_gd', 'id' => 'college', 'required' => 'required', 'placeholder'=>'Select College') )}}                    
                         </div>
                       </div>                   
                       <div class="col-md-6">
                         <div class="form-group">                          
                           {{Form::label('dept', 'Subject')}}                     
-                          {{Form::select('dept',$subjects, $scholar->guide->dept->id, array('class' => 'form-control chng_subjct call_gd','id' =>'dept', 'required' => 'required', 'placeholder'=>'Select Subject' ) )}} 
+                          {{Form::select('dept',$subjects, $scholar->dept->id, array('class' => 'form-control chng_subjct call_gd','id' =>'dept', 'required' => 'required', 'placeholder'=>'Select Subject' ) )}} 
                          </div>
                       </div>                 
                                       
@@ -170,8 +170,15 @@
                   <div class="form-row guide_data">
                       <div class="col-md-6">
                           <div class="form-group guide_list" id = "guides">  
-                              {{Form::label('guide', 'Supervisior')}}                     
-                              {{Form::select('guide',$guides, $scholar->guide_id, array('class' => 'form-control guide_list_ok','id' =>'guides_list_id', 'required' => 'required', 'placeholder'=>'Select Supervisior' ) )}}   
+                              
+                              {{Form::label('guide', 'Supervisior')}}  
+                                              
+                              
+                              {{Form::select('guide',$guides, $scholar->guide_id, array('class' => 'form-control guide_list_ok','id' =>'guides_list_id', 'required' => 'required', 'placeholder'=>'Select Supervisior', 'disabled' ) )}}   
+                              
+                             
+                                
+                              
                             </div>    
                                                   
                         </div>                   

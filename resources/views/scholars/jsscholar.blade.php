@@ -7,11 +7,13 @@
     jQuery(document).ready(function() {
         jQuery('.college-name').select2();
         jQuery('.chng_subjct').select2();
+        selctGuide();
     });
   
-     
+  
   jQuery('.call_gd').on("change", selctGuide);
   function selctGuide(){
+    
     var clg_id = jQuery('.college-name').val();
     var subject_id=jQuery('.chng_subjct').val();  
     if(!subject_id || !clg_id){
@@ -31,13 +33,17 @@
         },
         success: function(result){
           if(result.success && result.guide_count){
+            jQuery('#guide_list_id').attr('disabled', false);
             jQuery('.guide_list').html(result.guide_list);
-            jQuery('.alert-danger').hide();     
+            
+                 
            }
            else if(result.success && !(result.guide_count)){
             jQuery('#guides_list_id').attr('disabled',true);
+            
             jQuery('.alert-danger').html('No Supervisior found for this combination of college and subject. Please add Supervisior first for this combination ').insertAfter('.guide_data').show();          
-           }
+           
+          }
            else{
             jQuery.each(result.errors, function(key, value){
               jQuery('.alert-danger').insertAfter('.guide_data').show();

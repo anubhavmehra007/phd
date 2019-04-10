@@ -20,4 +20,7 @@ class Scholar extends Model
     public function dept(){
         return $this->belongsTo("App\Dept");
     }
+    public function reviewer() {
+        return $this->belongsToMany("App\Reviewer");
+    }
 }

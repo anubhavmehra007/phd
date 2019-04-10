@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Email;
+use App\Reviewer;
 
-class EmailsController extends Controller
+class ReviewerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,8 @@ class EmailsController extends Controller
      */
     public function index()
     {
-        //
-        $emails = Email::all();
-        return $emails;
-
+        //return pannel memebers index page
+        
     }
 
     /**
@@ -28,8 +25,7 @@ class EmailsController extends Controller
      */
     public function create()
     {
-        //
-        return view('emails.createemail');
+        //return pannel members create page 
     }
 
     /**
@@ -41,29 +37,23 @@ class EmailsController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request,[
-            'email_name' => 'required',
-            'email_layout' => 'required'
-        ]);
-        $email_lines = explode("\r\n",$request->email_layout);
-        $email_layout = "";
-        foreach($email_lines as $line) {
-            $email_layout= $email_layout.$line."<br />";
-        }
-      
-        try {
-            $url = "emails/"."$request->email_name"."blade.php";
-            $e = new Email();
-            $e->name = $request->email_name;
-            $e->layout = $url;
-            $e->save();
-            Storage::disk('local')->put("emails/"."$request->email_name"."blade.php",$email_layout);
-        }
-        catch(Exception $e) {
-            return $e->getMessage();
-        }
-        
-
+        $this->validate($request, array(
+            'scholar' => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:reviewers,email',
+            'addr' => 'required',
+            'insitute' => 'required',
+            'mobile' => 'requrired|numeric|digits_between:10,10',
+        ));
+        //Enter into database
+        $reviewer = new Reviewer();
+        $reviewer->name = $request->name;
+        $reviewer->addr = $request->addr;
+        $reviewer->email = $request->email;
+        $reviewer->mobile = $request->mobile;
+        $reviewer->institue = $request->institute;
+        $reviewer->scholar_id = $request->scholar;
+        $reviewer->save();
 
     }
 
@@ -76,10 +66,6 @@ class EmailsController extends Controller
     public function show($id)
     {
         //
-    } 
-    public function send($id, $vars) {
-
-
     }
 
     /**
